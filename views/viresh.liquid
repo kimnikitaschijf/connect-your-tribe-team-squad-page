@@ -16,4 +16,176 @@
 	<div class="tinted-background" aria-hidden="true"></div>
 </main>
 
+<style>
+    .index-main {
+    #tint {
+        position: absolute;
+        right: 100vw;
+    }
+
+    #tint:checked {
+		& ~ .tinted-background {
+            display: block;
+		}
+	}
+
+    .tinted-background {
+		display: none;
+		position: fixed;
+		/* top, right, bottom and left = 0 */
+		inset: 0;
+
+		background-color: rgba(0, 0, 0, 0.5);
+		/* achter profile-bubble */
+		z-index: 99;
+		animation: overlay-transition 500ms ease-in;
+	}
+
+    .profile-bubble {
+        --size-circle: 8.5em;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+    
+        background-color: #b594fc;
+        /* de fav_color uit Whois, wordt in HTML gemaakt tot een custom property, die hier gebruikt wordt */
+        border: 5px solid var(--fav_color);
+        width: var(--size-circle);
+        aspect-ratio: 1;
+        border-radius: 50%;
+    
+        cursor: pointer;
+        z-index: var(--z);
+    
+        animation: transX calc(var(--durX) * 1s) linear infinite alternate,
+            transY calc(var(--durY) * 1s) linear infinite alternate
+        ;
+        
+        /* stop animatie bij een hover */
+        /* https://stackoverflow.com/questions/75906720/how-to-make-css-animation-slows-down-to-stop-on-hover-and-continue-moving-infin */
+        &:hover {
+            animation-play-state: paused;
+            filter: brightness(1.2);
+        }
+    
+        .name {
+            width: 5em;
+            text-wrap: wrap;
+            text-align: center;
+            color: white;
+        }
+    
+        .squad {
+            display: none;
+            color: white;
+        }
+    
+        .website {
+            display: none;
+            color: white;
+        }
+
+        iframe {
+            display: none;
+        }
+
+    }
+    
+    /* de class open wordt toegeveogd met js als profile-bubble geklikt wordt */
+    .profile-bubble.open {
+        display: grid;
+        grid-template-columns: min-content 1fr 4em;
+        grid-template-rows: 1fr 1fr;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        animation: none;
+        z-index: 101;
+    
+        height: 10em;
+        width: 15em;
+        border-radius: 15px;
+    
+        svg {
+            align-self: end;
+        }
+    
+        .name {
+            text-wrap: nowrap;
+            align-self: end;
+            margin-left: 1em;
+        }
+    
+        .squad {
+            display: block;
+            align-self: end;
+        }
+    
+        .website {
+            display: block;
+            grid-area: 2 / 2;
+            text-wrap: nowrap;
+            margin-left: 1em;
+        }
+    }
+}
+
+@keyframes transX {
+    0% {
+        translate: 0;
+    }
+    100% {
+        translate: calc(100dvw - var(--size-circle));
+    }
+}
+
+@keyframes transY {
+    0% {
+        transform: translatey(0);
+    }
+    100% {
+        transform: translatey(calc(100dvh - var(--size-circle) - 15em));
+    }
+}
+</style>
+
+<script>
+// selecteer alle cirkels
+cirkels = document.querySelectorAll(".profile-bubble")
+
+// genereer nieuwe custom properties
+setPropertyXY()
+// genereer nieuwe custom properties om de 10s
+// let cirkelAnimation = setInterval(setPropertyXY, 10000);
+
+
+// Bij een click wordt een class toegevoegd aan de ge-klikte cirkel
+cirkels.forEach(cirkel => {
+    cirkel.addEventListener("click", () => {
+        cirkel.classList.toggle("open")
+    });
+});
+
+
+// genereer random getallen, seconden, voor de keyframe animatie
+function setPropertyXY() {
+    cirkels.forEach(cirkel => {
+        // https://www.w3schools.com/js/js_random.asp
+        durX = Math.floor(Math.random() * 10);
+        durY = Math.floor(Math.random() * 10);
+        // z-index
+        z = Math.floor(Math.random() * 100);
+
+        // maak custom properties van de random seconden
+        cirkel.style.setProperty('--durX', durX)
+        cirkel.style.setProperty('--durY', durY)
+        cirkel.style.setProperty('--z', z)
+    });
+}
+</script>
+
 {% render 'partials/foot.liquid' %}
