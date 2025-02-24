@@ -1,8 +1,8 @@
 {% render 'partials/head.liquid' %}
 
 <main class="index-main">
-	<input type="checkbox" id="tint">
-    <button class="stop-animatie" type="button">stop animatie</button>
+	<input type="checkbox" id="tint" aria-hidden="true">
+    <button class="button-stop-animatie" type="button">stop animatie</button>
 
 	{% for person in persons %}
 	<label for="tint">
@@ -41,9 +41,30 @@
         z-index: 99;
         animation: overlay-transition 500ms ease-in;
     }
+
+    .button-stop-animatie {
+        position: absolute;
+        top: 1em;
+        left: 1em;
+        border: 1px solid black;
+        background-color: beige;
+        border-radius: 15px;
+        width: 8em;
+        padding: 0.5em;
+        cursor: pointer;
+        z-index: 101;
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+
+        &:active {
+            scale: 0.8;
+        }
+    }
     
     .profile-bubble {
-        --size-circle: 8.5em;
+        --size-circle: 7em;
     
         display: flex;
         flex-direction: column;
@@ -61,8 +82,9 @@
         cursor: pointer;
         z-index: var(--z);
     
-        animation: transX calc(var(--durX) * 1s) linear infinite alternate,
-            transY calc(var(--durY) * 1s) linear infinite alternate
+        animation:
+        transX calc(var(--durX) * 1s) linear infinite alternate,
+        transY calc(var(--durY) * 1s) linear infinite alternate
         ;
         
         /* stop animatie bij een hover */
@@ -88,11 +110,6 @@
             display: none;
             color: white;
         }
-
-        iframe {
-            display: none;
-        }
-
     }
     
     /* de class open wordt toegeveogd met js als profile-bubble geklikt wordt */
@@ -145,9 +162,25 @@
 /* de class met de layout voor de main als de stop animatie button geklikt wordt */
 .static-main {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
-    gap: 3em;
+	grid-template-columns: repeat(auto-fit, minmax(5em, 1fr));
+    gap: 2em;
     justify-items: center;
+
+    @media (min-width: 335px) {
+	    grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
+    }
+
+    @media (min-width: 480px) {
+        margin: 0 5em;
+    }
+
+    @media (min-width: 960px) {
+	    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+    }
+
+    @media (min-width: 1120px) {
+	    grid-template-columns: repeat(5, 1fr);
+    }
 }
 
 @keyframes transX {
@@ -164,7 +197,7 @@
         transform: translatey(0);
     }
     100% {
-        transform: translatey(calc(100dvh - var(--size-circle) - 15em));
+        transform: translatey(calc(100dvh - var(--size-circle)));
     }
 }
 </style>
@@ -172,7 +205,7 @@
 <script>
 // selecteer alle cirkels
 let cirkels = document.querySelectorAll(".profile-bubble")
-let stopAnimation = document.querySelector(".stop-animatie")
+let stopAnimation = document.querySelector(".button-stop-animatie")
 
 // genereer nieuwe custom properties
 setPropertyXY()
