@@ -50,7 +50,7 @@ app.get('/akiko', async function (request, response) {
 })
 
 app.get('/viresh', async function (request, response) {
-  const person = await fetch('https://fdnd.directus.app/items/person/?fields=name,squads.squad_id.name,github_handle,fav_color&filter={%22github_handle%22:{%22_neq%22:%22null%22}}')
+  const person = await fetch('https://fdnd.directus.app/items/person/?fields=name,squads.squad_id.name,github_handle,fav_color&filter={"github_handle":{"_neq":"null"}}')
   const personResponseJSON = await person.json()
 
   response.render('viresh.liquid', {persons: personResponseJSON.data})
