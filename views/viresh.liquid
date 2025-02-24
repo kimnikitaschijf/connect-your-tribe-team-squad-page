@@ -2,6 +2,7 @@
 
 <main class="index-main">
 	<input type="checkbox" id="tint">
+    <button class="stop-animatie" type="button">stop animatie</button>
 
 	{% for person in persons %}
 	<label for="tint">
@@ -17,30 +18,30 @@
 </main>
 
 <style>
-    .index-main {
+.index-main {
     #tint {
         position: absolute;
         right: 100vw;
     }
 
     #tint:checked {
-		& ~ .tinted-background {
+        & ~ .tinted-background {
             display: block;
-		}
-	}
+        }
+    }
 
     .tinted-background {
-		display: none;
-		position: fixed;
-		/* top, right, bottom and left = 0 */
-		inset: 0;
+        display: none;
+        position: fixed;
+        /* top, right, bottom and left = 0 */
+        inset: 0;
 
-		background-color: rgba(0, 0, 0, 0.5);
-		/* achter profile-bubble */
-		z-index: 99;
-		animation: overlay-transition 500ms ease-in;
-	}
-
+        background-color: rgba(0, 0, 0, 0.5);
+        /* achter profile-bubble */
+        z-index: 99;
+        animation: overlay-transition 500ms ease-in;
+    }
+    
     .profile-bubble {
         --size-circle: 8.5em;
     
@@ -132,6 +133,21 @@
             margin-left: 1em;
         }
     }
+
+    /* de class die de animatie van alle cirkels stopt als de stop animatio button geklikt wordt */
+    .profile-bubble.static {
+        position: static;
+        animation: none;
+        z-index: 101;
+    }
+}
+
+/* de class met de layout voor de main als de stop animatie button geklikt wordt */
+.static-main {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+    gap: 3em;
+    justify-items: center;
 }
 
 @keyframes transX {
@@ -155,7 +171,8 @@
 
 <script>
 // selecteer alle cirkels
-cirkels = document.querySelectorAll(".profile-bubble")
+let cirkels = document.querySelectorAll(".profile-bubble")
+let stopAnimation = document.querySelector(".stop-animatie")
 
 // genereer nieuwe custom properties
 setPropertyXY()
@@ -168,6 +185,19 @@ cirkels.forEach(cirkel => {
     cirkel.addEventListener("click", () => {
         cirkel.classList.toggle("open")
     });
+});
+
+
+// stop animaties als de stop animatie button geklikt wordt
+stopAnimation.addEventListener("click", (e) => {
+    // stop de keyframe animaties
+    cirkels.forEach(cirkel => {
+        cirkel.classList.toggle("static")
+    });
+
+    // zoek de parrent container en verander de layout met een class
+    const parentContainer = e.target.closest('.index-main');
+    parentContainer.classList.toggle('static-main');
 });
 
 
