@@ -4,7 +4,7 @@ import { Liquid } from 'liquidjs';
 
 
 // Vul hier jullie team naam in
-const teamName = '';
+const teamName = 'flux';
 
 
 const app = express()
@@ -29,6 +29,46 @@ app.get('/', async function (request, response) {
   })
 })
 
+app.get('/kim', async function (request, response) {
+  const messagesResponse = await fetch(`https://fdnd.directus.app/items/messages/?filter={"for":"Team ${teamName}"}`)
+  const messagesResponseJSON = await messagesResponse.json()
+
+  response.render('kim.liquid', {
+    teamName: teamName,
+    messages: messagesResponseJSON.data
+  })
+})
+
+app.get('/akiko', async function (request, response) {
+  const messagesResponse = await fetch(`https://fdnd.directus.app/items/messages/?filter={"for":"Team ${teamName}"}`)
+  const messagesResponseJSON = await messagesResponse.json()
+
+  response.render('akiko.liquid', {
+    teamName: teamName,
+    messages: messagesResponseJSON.data
+  })
+})
+
+app.get('/viresh', async function (request, response) {
+  const messagesResponse = await fetch(`https://fdnd.directus.app/items/messages/?filter={"for":"Team ${teamName}"}`)
+  const messagesResponseJSON = await messagesResponse.json()
+
+  response.render('viresh.liquid', {
+    teamName: teamName,
+    messages: messagesResponseJSON.data
+  })
+})
+
+app.get('/ties', async function (request, response) {
+  const messagesResponse = await fetch(`https://fdnd.directus.app/items/messages/?filter={"for":"Team ${teamName}"}`)
+  const messagesResponseJSON = await messagesResponse.json()
+
+  response.render('ties.liquid', {
+    teamName: teamName,
+    messages: messagesResponseJSON.data
+  })
+})
+
 app.post('/', async function (request, response) {
   await fetch('https://fdnd.directus.app/items/messages/', {
     method: 'POST',
@@ -46,7 +86,7 @@ app.post('/', async function (request, response) {
 })
 
 
-app.set('port', process.env.PORT || 8000)
+app.set('port', process.env.PORT || 8001)
 
 if (teamName == '') {
   console.log('Voeg eerst de naam van jullie team in de code toe.')
