@@ -23,7 +23,16 @@
         & ~ .tinted-background {
             display: block;
         }
+
+        /* als de cirkel animatie gestopt is, komt er geen bacground tint wanneer er op een cirkel geklikt wordt  */
+        & ~ .label-focus:has(.profile-bubble.static) ~ .tinted-background {
+            display: none;
+        }
     }
+
+    /* #tint:checked  */
+
+
 
     .tinted-background {
         display: none;
@@ -33,7 +42,7 @@
 
         background-color: rgba(0, 0, 0, 0.5);
         /* achter profile-bubble */
-        z-index: 99;
+        z-index: 98;
         animation: overlay-transition 500ms ease-in;
     }
 
@@ -59,7 +68,7 @@
     }
 
     .label-focus {
-        &.label-focus:focus-within article {
+        &:focus-within article {
             border-color: rgb(218, 149, 46);
         }
     }
@@ -95,7 +104,7 @@
             animation-play-state: paused;
             filter: brightness(1.2);
         }
-    
+
         .name {
             width: 5em;
             text-wrap: wrap;
@@ -119,6 +128,7 @@
         display: grid;
         grid-template-columns: min-content 1fr 4em;
         grid-template-rows: 1fr 1fr;
+        position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -155,11 +165,41 @@
 
     /* de class die de animatie van alle cirkels stopt als de stop animatio button geklikt wordt */
     .profile-bubble.static {
-        position: static;
+        position: relative;
         animation: none;
-        z-index: 101;
+
+        /* hier komt de coin flip animatie */
+        &.open {
+            display: flex;
+            flex-direction: column;
+
+            width: var(--size-circle);
+            height: var(--size-circle);
+            border-radius: 50%;
+
+            &:active {
+                scale: 0.7;
+            }
+
+            svg {
+                align-self: center;
+            }
+
+            .name {
+                width: 5em;
+                text-wrap: wrap;
+                align-self: center;
+                color: white;
+                margin: 0;
+            }
+
+            .website {
+                display: none;
+            }
+        }
     }
 }
+
 
 /* de class met de layout voor de main als de stop animatie button geklikt wordt */
 .static-main {
