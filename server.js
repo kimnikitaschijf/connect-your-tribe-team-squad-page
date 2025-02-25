@@ -57,13 +57,10 @@ app.get('/viresh', async function (request, response) {
 })
 
 app.get('/ties', async function (request, response) {
-  const messagesResponse = await fetch(`https://fdnd.directus.app/items/messages/?filter={"for":"Team ${teamName}"}`)
-  const messagesResponseJSON = await messagesResponse.json()
+  const person = await fetch('https://fdnd.directus.app/items/person/?fields=name,squads.squad_id.name,github_handle,fav_color&filter={"github_handle":{"_neq":"null"}}')
+  const personResponseJSON = await person.json()
 
-  response.render('ties.liquid', {
-    teamName: teamName,
-    messages: messagesResponseJSON.data
-  })
+  response.render('ties.liquid', {persons: personResponseJSON.data})
 })
 
 app.post('/', async function (request, response) {
