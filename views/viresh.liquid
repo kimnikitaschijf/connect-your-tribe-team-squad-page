@@ -169,6 +169,10 @@
         animation: none;
 
         /* hier komt de coin flip animatie */
+        &:active {
+            scale: 0.7;
+        }
+
         &.open {
             display: flex;
             flex-direction: column;
@@ -176,10 +180,6 @@
             width: var(--size-circle);
             height: var(--size-circle);
             border-radius: 50%;
-
-            &:active {
-                scale: 0.7;
-            }
 
             svg {
                 align-self: center;
