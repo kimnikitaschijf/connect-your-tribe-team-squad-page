@@ -28,22 +28,59 @@
         <div class="profile-bubble">
           {% if show == 'avatar' %}
           {% if person.avatar and person.avatar != '' %}
-          <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}"/>
+          <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
           {% else %}
           <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
           {% endif %}
           {% else %}
-          <article class="{{ show }}">{{ person[show] }}</article>
-        {% endif %}
+          <article class="{{ show }}">
+            {% if show == "fav_country" %}
+            {% case person.fav_country | downcase %}
+            {% when "pol" %}
+            🇵🇱
+            {% when "gbr" %}
+            🇬🇧
+            {% when "fra" %}
+            🇫🇷
+            {% when "esp" %}
+            🇪🇸
+            {% when "usa" %}
+            🇺🇸
+            {% when "irl" %}
+            🇮🇪
+            {% when "che" %}
+            🇨🇭
+            {% when "idn" %}
+            🇮🇩
+            {% when "sur" %}
+            🇸🇷
+            {% when "ita" %}
+            🇮🇹
+            {% when "grc" %}
+            🇬🇷
+            {% when "hrv" %}
+            🇭🇷
+            {% when "tur" %}
+            🇹🇷
+            {% when "eth" %}
+            🇪🇹
+            {% when "jpn" %}
+            🇯🇵
+            {% else %}
+            {{ person[show] }}
+            {% endcase %}
+            {% endif %}
+          </article>
+          {% endif %}
 
-        <form action="/like" method="POST">
-        <input type="hidden" name="studentid" value="{{ person.id }}">
-        <button type="submit" class="like-button">
-          ❤️
-        </button>
-      </form>
+          <form action="/like" method="POST">
+            <input type="hidden" name="studentid" value="{{ person.id }}">
+            <button type="submit" class="like-button">
+              ❤️
+            </button>
+          </form>
 
-      <span class="like-count">{{ likes[person.id] | default: 0 }} likes</span> <!-- Toon het aantal likes -->
+          <span class="like-count">{{ likes[person.id] | default: 0 }} likes</span> <!-- Toon het aantal likes -->
 
         </div>
       </label>
@@ -107,11 +144,11 @@
 
   .fav_emoji {
     font-size: 4.5rem;
-}
+  }
 
-    .fav_color {
-      background-color: {{ person.fav_color }};
-    }
+  .fav_country {
+    font-size: 3.5rem;
+  }
 
   .index-main {
     #tint:checked~.tinted-background {
@@ -191,7 +228,8 @@
       filter: brightness(1.2);
     }
 
-    .like-button, .like-count {
+    .like-button,
+    .like-count {
       display: none;
     }
 
@@ -208,8 +246,9 @@
       height: 10em;
       width: 15em;
       border-radius: 15px;
-      
-      .like-button, .like-count {
+
+      .like-button,
+      .like-count {
         display: block;
       }
     }
