@@ -25,15 +25,15 @@
       <label for="tint" class="label-focus" tabindex="0">
 
         <!-- Voorkant van de kaart -->
-        <div class="profile-bubble {{ show }} ">
+        <div class="profile-bubble">
           {% if show == 'avatar' %}
           {% if person.avatar and person.avatar != '' %}
-          <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
+          <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}"/>
           {% else %}
           <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
           {% endif %}
           {% else %}
-          <article>{{ person[show] }}</article>
+          <article class="{{ show }}">{{ person[show] }}</article>
           {% endif %}
         </div>
       </label>
@@ -96,9 +96,12 @@
   }
 
   .fav_emoji {
-    font-size: 5rem;
-    background-color: red;
-  }
+    font-size: 4.5rem;
+}
+
+    .fav_color {
+      background-color: {{ person.fav_color }};
+    }
 
   .index-main {
     #tint:checked~.tinted-background {
