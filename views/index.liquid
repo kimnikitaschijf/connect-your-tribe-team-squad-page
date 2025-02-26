@@ -1,6 +1,6 @@
 {% render 'partials/head.liquid' %}
 
-<main class="index-main grid-container">
+<main class="index-main">
 
   <h1>Squadpage</h1>
   <p class="sub-title">Ontdek meer over onze squad hieronder!</p>
@@ -11,26 +11,25 @@
   {% for person in persons %}
   <figure>
     <label for="tint" class="label-focus" tabindex="0" aria-hidden="true">
-      <div>
 
-        <!-- Voorkant van de kaart -->
-        <div class="{{ show }} profile-bubble">
-          {% if show == 'avatar' %}
-          {% if person.avatar and person.avatar != '' %}
-          <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
-          {% else %}
-          <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
-          {% endif %}
-          {% else %}
-          <article>{{ person[show] }}</article>
-          {% endif %}
-        </div>
-
-        <!-- Achterkant van de kaart -->
-        <div id="back">
-          <span class="back-text">{{ person.name }}</span>
-        </div>
+      <!-- Voorkant van de kaart -->
+      <div class="{{ show }} profile-bubble">
+        {% if show == 'avatar' %}
+        {% if person.avatar and person.avatar != '' %}
+        <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
+        {% else %}
+        <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
+        {% endif %}
+        {% else %}
+        <article>{{ person[show] }}</article>
+        {% endif %}
       </div>
+    </label>
+
+    <!-- Achterkant van de kaart -->
+    <div id="back">
+      <span class="back-text">{{ person.name }}</span>
+    </div>
     </label>
   </figure>
 
@@ -42,182 +41,180 @@
 
 
 <style>
- /* Algemene stijlen */
-html, body {
-  background-color: #04083F;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-h1 {
-  text-align: center;
-  font-size: xx-large;
-  color: #88E2C1;
-}
-
-.sub-title {
-  color: #04083F;
-  background-color: #9F7AEF;
-  padding: 0.7rem;
-  border-radius: 50rem;
-  margin: 1rem;
-  font-size: 1rem;
-  text-align: center;
-  max-width: max-content;
-  justify-self: center;
-}
-
-.index-main {
-  #tint:checked ~ .tinted-background {
-    display: block;
-  }
-  
-  #tint:checked ~ .label-focus:has(.profile-bubble.static) ~ .tinted-background {
-    display: none;
+  /* Algemene stijlen */
+  html,
+  body {
+    background-color: #04083F;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 
-  .tinted-background {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 98;
-    animation: overlay-transition 500ms ease-in;
+  h1 {
+    text-align: center;
+    font-size: xx-large;
+    color: #88E2C1;
   }
 
-  .button-stop-animatie {
+  .sub-title {
+    color: #04083F;
+    background-color: #9F7AEF;
+    padding: 0.7rem;
+    border-radius: 50rem;
+    margin: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    max-width: max-content;
+    justify-self: center;
+  }
+
+  .index-main {
+    #tint:checked~.tinted-background {
+      display: block;
+    }
+
+    #tint:checked~.label-focus:has(.profile-bubble.static)~.tinted-background {
+      display: none;
+    }
+
+    .tinted-background {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 98;
+      animation: overlay-transition 500ms ease-in;
+    }
+
+    .button-stop-animatie {
+      position: absolute;
+      top: 1em;
+      left: 1em;
+      border: 1px solid black;
+      background-color: beige;
+      border-radius: 15px;
+      width: 8em;
+      padding: 0.5em;
+      cursor: pointer;
+      z-index: 101;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+
+      &:active {
+        scale: 0.8;
+      }
+    }
+  }
+
+  .profile-bubble {
+    --size-circle: 7em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    top: 1em;
-    left: 1em;
-    border: 1px solid black;
-    background-color: beige;
-    border-radius: 15px;
-    width: 8em;
-    padding: 0.5em;
+
+    width: var(--size-circle);
+    height: var(--size-circle);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #b594fc;
+    border: 5px solid var(--fav_color, #9F7AEF);
     cursor: pointer;
-    z-index: 101;
-    
+    transition: transform 0.3s ease-in-out;
+    z-index: var(--z);
+
+    animation:
+      transX calc(var(--durX) * 1s) linear infinite alternate,
+      transY calc(var(--durY) * 1s) linear infinite alternate;
+
     &:hover {
-      filter: brightness(0.8);
+      animation-play-state: paused;
+      filter: brightness(1.2);
     }
-    
-    &:active {
-      scale: 0.8;
-    }
-  }
-}
 
-.profile-bubble {
-  --size-circle: 7em;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-
-  width: var(--size-circle);
-  height: var(--size-circle);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background-color: #b594fc;
-  border: 5px solid var(--fav_color, #9F7AEF);
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-  z-index: var(--z);
-
-  animation:
-    transX calc(var(--durX) * 1s) linear infinite alternate,
-    transY calc(var(--durY) * 1s) linear infinite alternate;
-
-  &:hover {
-    animation-play-state: paused;
-    filter: brightness(1.2);
-  }
-
-  &.open {
-    display: grid;
-    grid-template-columns: min-content 1fr 4em;
-    grid-template-rows: 1fr 1fr;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: none;
-    z-index: 101;
-    height: 10em;
-    width: 15em;
-    border-radius: 15px;
-  }
-  
-  &.static {
-    position: relative;
-    animation: none;
-    
-    &:active {
-      scale: 0.7;
-    }
-    
     &.open {
-      display: flex;
-      flex-direction: column;
-      width: var(--size-circle);
-      height: var(--size-circle);
-      border-radius: 50%;
-      
-      .name {
-        width: 5em;
-        text-wrap: wrap;
-        align-self: center;
-        color: white;
-        margin: 0;
+      display: grid;
+      grid-template-columns: min-content 1fr 4em;
+      grid-template-rows: 1fr 1fr;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: none;
+      z-index: 101;
+      height: 10em;
+      width: 15em;
+      border-radius: 15px;
+    }
+
+    &.static {
+      position: relative;
+      animation: none;
+
+      &:active {
+        scale: 0.7;
       }
-      
-      .website {
-        display: none;
+
+      &.open {
+        display: flex;
+        flex-direction: column;
+        width: var(--size-circle);
+        height: var(--size-circle);
+        border-radius: 50%;
+
+        .name {
+          width: 5em;
+          text-wrap: wrap;
+          align-self: center;
+          color: white;
+          margin: 0;
+        }
+
+        .website {
+          display: none;
+        }
       }
     }
   }
-}
 
-img {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
-}
+  img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+  }
 
-#back .back-text {
-  position: absolute;
-  color: #88E2C1;
-  border-radius: 2rem;
-  margin: 1rem;
-  font-size: 1rem;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  
-  .card-inner.do-flip & {
-    opacity: 1;
+  #back .back-text {
+    position: absolute;
+    color: #88E2C1;
+    border-radius: 2rem;
+    margin: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
   }
-}
 
-@keyframes transX {
-  0% {
-    translate: 0;
-  }
-  100% {
-    translate: calc(100dvw - var(--size-circle) - 5em);
-  }
-}
+  @keyframes transX {
+    0% {
+      translate: 0;
+    }
 
-@keyframes transY {
-  0% {
-    transform: translatey(0);
+    100% {
+      translate: calc(100dvw - var(--size-circle) - 5em);
+    }
   }
-  100% {
-    transform: translatey(calc(100dvh - var(--size-circle) - 5em));
-  }
-}
 
+  @keyframes transY {
+    0% {
+      transform: translatey(0);
+    }
+
+    100% {
+      transform: translatey(calc(100dvh - var(--size-circle) - 5em));
+    }
+  }
 </style>
 
 
@@ -282,17 +279,6 @@ img {
       cirkel.style.setProperty('--z', z)
     });
   }
-</script>
-
-<script>
-
-  document.querySelectorAll('.card-layout').forEach(card => {
-    card.addEventListener('click', function () {
-      const cardInner = this.querySelector('.card-inner');
-      cardInner.classList.toggle('do-flip'); // Draai de kaart om
-    });
-  });
-
 </script>
 
 {% render 'partials/foot.liquid' %}
