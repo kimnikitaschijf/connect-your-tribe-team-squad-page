@@ -27,74 +27,63 @@
         <!-- Voorkant van de kaart -->
         <div class="profile-bubble">
           {% if show == 'avatar' %}
-          {% if person.avatar and person.avatar != '' %}
-          <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
-          {% else %}
-          <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
-          {% endif %}
-          {% else %}
-          <article class="{{ show }}">
-            {% if show == "fav_country" %}
-            {% case person.fav_country | downcase %}
-            {% when "pol" %}
-            🇵🇱
-            {% when "gbr" %}
-            🇬🇧
-            {% when "fra" %}
-            🇫🇷
-            {% when "esp" %}
-            🇪🇸
-            {% when "usa" %}
-            🇺🇸
-            {% when "irl" %}
-            🇮🇪
-            {% when "che" %}
-            🇨🇭
-            {% when "idn" %}
-            🇮🇩
-            {% when "sur" %}
-            🇸🇷
-            {% when "ita" %}
-            🇮🇹
-            {% when "grc" %}
-            🇬🇷
-            {% when "hrv" %}
-            🇭🇷
-            {% when "tur" %}
-            🇹🇷
-            {% when "eth" %}
-            🇪🇹
-            {% when "jpn" %}
-            🇯🇵
+            {% if person.avatar and person.avatar != '' %}
+              <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
             {% else %}
-            {{ person[show] }}
-            {% endcase %}
-            {% elsif show == "fav_animal" %}
-            {{ person.fav_animal }}
-            {% elsif show == "fav_emoji" %}
-            {{ person.fav_emoji }}
-            {% elsif show == "fav_kitchen" %}
-            {{ person.fav_kitchen }}
-            {% elsif show == "fav_hobby" %}
-            {{ person.fav_hobby }}
-            {% elsif show == "fav_color" %}
-            {{ person.fav_color }}
-            {% elsif show == "birthdate" %}
-            {{ person.birthdate }}
+              <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
             {% endif %}
-          </article>
+          {% else %}
+            <article class="{{ show }}">
+              {% if show == "fav_country" %}
+              {% case person.fav_country | downcase %}
+              {% when "pol" %}
+              🇵🇱
+              {% when "gbr" %}
+              🇬🇧
+              {% when "fra" %}
+              🇫🇷
+              {% when "esp" %}
+              🇪🇸
+              {% when "usa" %}
+              🇺🇸
+              {% when "irl" %}
+              🇮🇪
+              {% when "che" %}
+              🇨🇭
+              {% when "idn" %}
+              🇮🇩
+              {% when "sur" %}
+              🇸🇷
+              {% when "ita" %}
+              🇮🇹
+              {% when "grc" %}
+              🇬🇷
+              {% when "hrv" %}
+              🇭🇷
+              {% when "tur" %}
+              🇹🇷
+              {% when "eth" %}
+              🇪🇹
+              {% when "jpn" %}
+              🇯🇵
+              {% else %}
+              {{ person[show] }}
+              {% endcase %}
+              {% elsif show == "fav_animal" %}
+              {{ person.fav_animal }}
+              {% elsif show == "fav_emoji" %}
+              {{ person.fav_emoji }}
+              {% elsif show == "fav_kitchen" %}
+              {{ person.fav_kitchen }}
+              {% elsif show == "fav_hobby" %}
+              {{ person.fav_hobby }}
+              {% elsif show == "fav_color" %}
+              {{ person.fav_color }}
+              {% elsif show == "birthdate" %}
+              {{ person.birthdate }}
+              {% endif %}
+            </article>
           {% endif %}
-
-          <form action="/like" method="POST">
-            <input type="hidden" name="studentid" value="{{ person.id }}">
-            <button type="submit" class="like-button">
-              ❤️
-            </button>
-          </form>
-
-          <span class="like-count">{{ likes[person.id] | default: 0 }} likes</span> <!-- Toon het aantal likes -->
-          <article>{{ person[show] }}</article>
-        {% endif %}
         
         <form action="/like" method="POST" class="like-container">
           <input type="hidden" name="studentid" value="{{ person.id }}">
