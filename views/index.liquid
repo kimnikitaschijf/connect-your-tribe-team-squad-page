@@ -69,6 +69,18 @@
             {% else %}
             {{ person[show] }}
             {% endcase %}
+            {% elsif show == "fav_animal" %}
+            {{ person.fav_animal }}
+            {% elsif show == "fav_emoji" %}
+            {{ person.fav_emoji }}
+            {% elsif show == "fav_kitchen" %}
+            {{ person.fav_kitchen }}
+            {% elsif show == "fav_hobby" %}
+            {{ person.fav_hobby }}
+            {% elsif show == "fav_color" %}
+            {{ person.fav_color }}
+            {% elsif show == "birthdate" %}
+            {{ person.birthdate }}
             {% endif %}
           </article>
           {% endif %}
