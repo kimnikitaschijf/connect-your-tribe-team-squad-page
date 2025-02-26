@@ -6,6 +6,12 @@ import { Liquid } from 'liquidjs';
 // Vul hier jullie team naam in
 const teamName = 'Flux';
 
+const squadResponse = await fetch(
+  'https://fdnd.directus.app/items/squad?filter={"_and":[{"cohort":"2425"},{"tribe":{"name":"FDND Jaar 1"}}]}'
+);
+
+// Lees van de response van die fetch het JSON object in, waar we iets mee kunnen doen
+const squadResponseJSON = await squadResponse.json();
 
 const app = express()
 
@@ -134,12 +140,14 @@ app.get("/land/", async function (request, response) {
   });
 });
 
-
 app.get("/verjaardag/", async function (request, response) {
+  const baseUrl =
+    "https://fdnd.directus.app/items/person/?fields=id,name,squads.squad_id.name,fav_color,fav_emoji,fav_country,birthdate,avatar";
   const filterString =
     "&filter[squads][squad_id][name][_eq]=1G&filter[birthdate][_neq]=null&sort=birthdate";
 
-  const personResponse = await fetch(baseUrl + filterString);
+  const fullUrl = baseUrl + filterString;
+  const personResponse = await fetch(fullUrl);
   const personResponseJSON = await personResponse.json();
 
   response.render("index.liquid", {

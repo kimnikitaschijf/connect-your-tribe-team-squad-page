@@ -25,7 +25,7 @@
       <label for="tint" class="label-focus" tabindex="0">
 
         <!-- Voorkant van de kaart -->
-        <div class="{{ show }} profile-bubble">
+        <div class="profile-bubble {{ show }} ">
           {% if show == 'avatar' %}
           {% if person.avatar and person.avatar != '' %}
           <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
@@ -93,6 +93,11 @@
         text-decoration: none;
       }
     }
+  }
+
+  .fav_emoji {
+    font-size: 5rem;
+    background-color: red;
   }
 
   .index-main {
