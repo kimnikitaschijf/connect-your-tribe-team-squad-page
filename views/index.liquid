@@ -2,327 +2,283 @@
 
 <main class="index-main grid-container">
 
-    <h1>Squadpage</h1>
-    <p class="sub-title">Ontdek meer over onze squad hieronder!</p>
+  <h1>Squadpage</h1>
+  <p class="sub-title">Ontdek meer over onze squad hieronder!</p>
 
-	<input type="checkbox" id="tint" hidden>
-    <button class="button-stop-animatie" type="button">stop animatie</button>
+  <input type="checkbox" id="tint" hidden>
+  <button class="button-stop-animatie" type="button">stop animatie</button>
 
-	{% for person in persons %}
-    <figure class="card-layout">
-        <label for="tint" class="label-focus" tabindex="0" aria-hidden="true">
-            <div class="card-inner">
+  {% for person in persons %}
+  <figure class="card-layout">
+    <label for="tint" class="label-focus" tabindex="0" aria-hidden="true">
+      <div class="card-inner">
 
-                <!-- Voorkant van de kaart -->
-                <div id="front" class="card-side {{ show }} profile-bubble">
-                    {% if show == 'avatar' %}
-                    {% if person.avatar and person.avatar != '' %}
-                    <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
-                    {% else %}
-                    <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
-                    {% endif %}
-                    {% else %}
-                    <article>{{ person[show] }}</article>
-                    {% endif %}
-                </div>
+        <!-- Voorkant van de kaart -->
+        <div id="front" class=" {{ show }} profile-bubble">
+          {% if show == 'avatar' %}
+          {% if person.avatar and person.avatar != '' %}
+          <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
+          {% else %}
+          <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
+          {% endif %}
+          {% else %}
+          <article>{{ person[show] }}</article>
+          {% endif %}
+        </div>
 
-                <!-- Achterkant van de kaart -->
-                <div id="back" class="card-side">
-                    <span class="back-text">{{ person.name }}</span>
-                </div>
-            </div>
-        </label>
-    </figure>
+        <!-- Achterkant van de kaart -->
+        <div id="back">
+          <span class="back-text">{{ person.name }}</span>
+        </div>
+      </div>
+    </label>
+  </figure>
 
 
-	{%- endfor %}
+  {%- endfor %}
 
-	<div class="tinted-background" aria-hidden="true"></div>
+  <div class="tinted-background" aria-hidden="true"></div>
 </main>
 
 
 <style>
-    /* Algemene stijlen */
-    html,
-    body {
-        background-color: #04083F;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* Algemene stijlen */
+  html,
+  body {
+    background-color: #04083F;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  /* Titel bovenaan */
+  h1 {
+    text-align: center;
+    font-size: xx-large;
+    color: #88E2C1;
+  }
+
+  .sub-title {
+    color: #04083F;
+    background-color: #9F7AEF;
+    padding: 0.7rem;
+    border-radius: 50rem;
+    margin: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    max-width: max-content;
+    justify-self: center;
+  }
+
+
+  .index-main {
+    #tint:checked {
+      &~.tinted-background {
+        display: block;
+      }
+
+      /* als de cirkel animatie gestopt is, komt er geen bacground tint wanneer er op een cirkel geklikt wordt  */
+      &~.label-focus:has(.profile-bubble.static)~.tinted-background {
+        display: none;
+      }
     }
 
-    /* Titel bovenaan */
-    h1 {
-        text-align: center;
-        font-size: xx-large;
-        color: #88E2C1;
+    /* #tint:checked  */
+
+    .tinted-background {
+      display: none;
+      position: fixed;
+      /* top, right, bottom and left = 0 */
+      inset: 0;
+
+      background-color: rgba(0, 0, 0, 0.5);
+      /* achter profile-bubble */
+      z-index: 98;
+      animation: overlay-transition 500ms ease-in;
     }
 
-    .sub-title {
-        color: #04083F;
-        background-color: #9F7AEF;
-        padding: 0.7rem;
-        border-radius: 50rem;
-        margin: 1rem;
-        font-size: 1rem;
-        text-align: center;
-        max-width: max-content;
-        justify-self: center;
+    .button-stop-animatie {
+      position: absolute;
+      top: 1em;
+      left: 1em;
+      border: 1px solid black;
+      background-color: beige;
+      border-radius: 15px;
+      width: 8em;
+      padding: 0.5em;
+      cursor: pointer;
+      z-index: 101;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+
+      &:active {
+        scale: 0.8;
+      }
     }
 
-    /* dynamische classes voor elk filter */
-    .fav_emoji {
-        font-size: 4rem;
+    .label-focus {
+      &:focus-within article {
+        border-color: rgb(218, 149, 46);
+      }
     }
 
+    .profile-bubble {
+      --size-circle: 7em;
 
-    .index-main {
-        #tint:checked {
-            &~.tinted-background {
-                display: block;
-            }
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
 
-            /* als de cirkel animatie gestopt is, komt er geen bacground tint wanneer er op een cirkel geklikt wordt  */
-            &~.label-focus:has(.profile-bubble.static)~.tinted-background {
-                display: none;
-            }
-        }
+      background-color: #b594fc;
+      /* de fav_color uit Whois, wordt in HTML gemaakt tot een custom property, die hier gebruikt wordt */
+      border: 5px solid var(--fav_color);
+      width: var(--size-circle);
+      aspect-ratio: 1;
+      border-radius: 50%;
 
-        /* #tint:checked  */
+      cursor: pointer;
+      z-index: var(--z);
 
+      animation:
+        transX calc(var(--durX) * 1s) linear infinite alternate,
+        transY calc(var(--durY) * 1s) linear infinite alternate;
 
-
-        .tinted-background {
-            display: none;
-            position: fixed;
-            /* top, right, bottom and left = 0 */
-            inset: 0;
-
-            background-color: rgba(0, 0, 0, 0.5);
-            /* achter profile-bubble */
-            z-index: 98;
-            animation: overlay-transition 500ms ease-in;
-        }
-
-        .button-stop-animatie {
-            position: absolute;
-            top: 1em;
-            left: 1em;
-            border: 1px solid black;
-            background-color: beige;
-            border-radius: 15px;
-            width: 8em;
-            padding: 0.5em;
-            cursor: pointer;
-            z-index: 101;
-
-            &:hover {
-                filter: brightness(0.8);
-            }
-
-            &:active {
-                scale: 0.8;
-            }
-        }
-
-        .label-focus {
-            &:focus-within article {
-                border-color: rgb(218, 149, 46);
-            }
-        }
-
-
-        .profile-bubble {
-            --size-circle: 7em;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-
-            background-color: #b594fc;
-            /* de fav_color uit Whois, wordt in HTML gemaakt tot een custom property, die hier gebruikt wordt */
-            border: 5px solid var(--fav_color);
-            width: var(--size-circle);
-            aspect-ratio: 1;
-            border-radius: 50%;
-
-            cursor: pointer;
-            z-index: var(--z);
-
-            animation:
-                transX calc(var(--durX) * 1s) linear infinite alternate,
-                transY calc(var(--durY) * 1s) linear infinite alternate;
-
-            /* stop animatie bij een hover */
-            /* https://stackoverflow.com/questions/75906720/how-to-make-css-animation-slows-down-to-stop-on-hover-and-continue-moving-infin */
-            &:hover {
-                animation-play-state: paused;
-                filter: brightness(1.2);
-            }
-        }
-
-        /* De inner structuur van kaart (voor & achterkant) */
-        .card-inner {
-            position: relative;
-            transform-style: preserve-3d;
-            transform: rotateY(0deg);
-            transition: transform 0.35s ease;
-            width: 100%;
-            height: 100%;
-
-            /* Flip effect */
-            &.do-flip {
-                transform: rotateY(180deg);
-            }
-
-            #front {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 50rem;
-            }
-
-            /* Avatars van kaart */
-            img {
-                width: 5rem;
-                height: 5rem;
-                border-radius: 50%;
-            }
-
-            /* Voor & achterkant van  kaart */
-            .card-side {
-                position: absolute;
-                inset: 0;
-                backface-visibility: hidden;
-            }
-
-            #back {
-                transform: rotateY(180deg);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 50rem;
-                background-color: #04083F;
-
-                /* Achterkant tekst */
-                .back-text {
-                    position: absolute;
-                    color: #88E2C1;
-                    border-radius: 2rem;
-                    margin: 1rem;
-                    font-size: 1rem;
-                    text-align: center;
-                    opacity: 0;
-                    transition: opacity 0.3s ease-in-out;
-
-                    /* Toont tekst bij flip */
-                    .card-inner.do-flip & {
-                        opacity: 1;
-                    }
-                }
-            }
-        }
-
-        /* de class open wordt toegeveogd met js als profile-bubble geklikt wordt */
-        .profile-bubble.open {
-            display: grid;
-            grid-template-columns: min-content 1fr 4em;
-            grid-template-rows: 1fr 1fr;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-
-            animation: none;
-            z-index: 101;
-
-            height: 10em;
-            width: 15em;
-            border-radius: 15px;
-        }
-
-        /* de class die de animatie van alle cirkels stopt als de stop animatio button geklikt wordt */
-        .profile-bubble.static {
-            position: relative;
-            animation: none;
-
-            /* hier komt de coin flip animatie */
-            &:active {
-                scale: 0.7;
-            }
-
-            &.open {
-                display: flex;
-                flex-direction: column;
-
-                width: var(--size-circle);
-                height: var(--size-circle);
-                border-radius: 50%;
-
-                svg {
-                    align-self: center;
-                }
-
-                .name {
-                    width: 5em;
-                    text-wrap: wrap;
-                    align-self: center;
-                    color: white;
-                    margin: 0;
-                }
-
-                .website {
-                    display: none;
-                }
-            }
-        }
+      /* stop animatie bij een hover */
+      /* https://stackoverflow.com/questions/75906720/how-to-make-css-animation-slows-down-to-stop-on-hover-and-continue-moving-infin */
+      &:hover {
+        animation-play-state: paused;
+        filter: brightness(1.2);
+      }
     }
 
+    /* De inner structuur van kaart (voor & achterkant) */
+      /* Avatars van kaart */
+      img {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+      }
 
-    /* de class met de layout voor de main als de stop animatie button geklikt wordt */
-    .static-main {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(110px, 2fr));
-        gap: 1rem;
-        justify-items: center;
 
-        /* Card layout voor de cirkels */
-        .card-layout {
-            width: 6rem;
-            height: 6rem;
-            border-radius: 50%;
-            background-color: #B594FC;
-            border: 0.5rem solid #9F7AEF;
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
 
-            /* Hover effect zoom cirkel */
-            &:hover {
-                transform: scale(1.1);
-            }
+      #back {
+
+        /* Achterkant tekst */
+        .back-text {
+          position: absolute;
+          color: #88E2C1;
+          border-radius: 2rem;
+          margin: 1rem;
+          font-size: 1rem;
+          text-align: center;
+          opacity: 0;
+          transition: opacity 0.3s ease-in-out;
+
+          /* Toont tekst bij flip */
+          .card-inner.do-flip & {
+            opacity: 1;
+          }
         }
+      }
     }
 
+    /* de class open wordt toegeveogd met js als profile-bubble geklikt wordt */
+    .profile-bubble.open {
+      display: grid;
+      grid-template-columns: min-content 1fr 4em;
+      grid-template-rows: 1fr 1fr;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
 
-    @keyframes transX {
-        0% {
-            translate: 0;
-        }
+      animation: none;
+      z-index: 101;
 
-        100% {
-            translate: calc(100dvw - var(--size-circle) - 5em);
-        }
+      height: 10em;
+      width: 15em;
+      border-radius: 15px;
     }
 
-    @keyframes transY {
-        0% {
-            transform: translatey(0);
+    /* de class die de animatie van alle cirkels stopt als de stop animatio button geklikt wordt */
+    .profile-bubble.static {
+      position: relative;
+      animation: none;
+
+      /* hier komt de coin flip animatie */
+      &:active {
+        scale: 0.7;
+      }
+
+      &.open {
+        display: flex;
+        flex-direction: column;
+
+        width: var(--size-circle);
+        height: var(--size-circle);
+        border-radius: 50%;
+
+        svg {
+          align-self: center;
         }
 
-        100% {
-            transform: translatey(calc(100dvh - var(--size-circle) - 5em));
+        .name {
+          width: 5em;
+          text-wrap: wrap;
+          align-self: center;
+          color: white;
+          margin: 0;
         }
+
+        .website {
+          display: none;
+        }
+      }
     }
+  }
+
+
+  /* de class met de layout voor de main als de stop animatie button geklikt wordt */
+
+    /* Card layout voor de cirkels */
+    .card-layout {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+      background-color: #B594FC;
+      border: 0.5rem solid #9F7AEF;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+
+      /* Hover effect zoom cirkel */
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  
+
+
+  @keyframes transX {
+    0% {
+      translate: 0;
+    }
+
+    100% {
+      translate: calc(100dvw - var(--size-circle) - 5em);
+    }
+  }
+
+  @keyframes transY {
+    0% {
+      transform: translatey(0);
+    }
+
+    100% {
+      transform: translatey(calc(100dvh - var(--size-circle) - 5em));
+    }
+  }
 </style>
 
 
@@ -334,69 +290,69 @@
 
 
 <script>
-    // selecteer alle cirkels
-    let cirkels = document.querySelectorAll(".profile-bubble")
-    let stopAnimation = document.querySelector(".button-stop-animatie")
+  // selecteer alle cirkels
+  let cirkels = document.querySelectorAll(".profile-bubble")
+  let stopAnimation = document.querySelector(".button-stop-animatie")
 
-    // genereer nieuwe custom properties
-    setPropertyXY()
-    // genereer nieuwe custom properties om de 10s
-    // let cirkelAnimation = setInterval(setPropertyXY, 10000);
+  // genereer nieuwe custom properties
+  setPropertyXY()
+  // genereer nieuwe custom properties om de 10s
+  // let cirkelAnimation = setInterval(setPropertyXY, 10000);
 
 
-    // Bij een click wordt een class toegevoegd aan de ge-klikte cirkel
-    cirkels.forEach(cirkel => {
-        cirkel.addEventListener("click", () => {
-            cirkel.classList.toggle("open")
-        });
+  // Bij een click wordt een class toegevoegd aan de ge-klikte cirkel
+  cirkels.forEach(cirkel => {
+    cirkel.addEventListener("click", () => {
+      cirkel.classList.toggle("open")
     });
+  });
 
 
-    // stop animaties als de stop animatie button geklikt wordt
-    stopAnimation.addEventListener("click", (e) => {
-        // verander de tekst in de button
-        if (stopAnimation.innerText === "Start animatie") {
-            stopAnimation.innerText = "Stop animatie";
-        } else {
-            stopAnimation.innerText = "Start animatie";
-        }
-
-        // stop de keyframe animaties
-        cirkels.forEach(cirkel => {
-            cirkel.classList.toggle("static")
-        });
-
-        // zoek de parrent container en verander de layout met een class
-        const parentContainer = e.target.closest('.index-main');
-        parentContainer.classList.toggle('static-main');
-    });
-
-
-    // genereer random getallen, seconden, voor de keyframe animatie
-    function setPropertyXY() {
-        cirkels.forEach(cirkel => {
-            // https://www.w3schools.com/js/js_random.asp
-            durX = Math.floor(Math.random() * 10);
-            durY = Math.floor(Math.random() * 10);
-            // z-index
-            z = Math.floor(Math.random() * 100);
-
-            // maak custom properties van de random seconden
-            cirkel.style.setProperty('--durX', durX)
-            cirkel.style.setProperty('--durY', durY)
-            cirkel.style.setProperty('--z', z)
-        });
+  // stop animaties als de stop animatie button geklikt wordt
+  stopAnimation.addEventListener("click", (e) => {
+    // verander de tekst in de button
+    if (stopAnimation.innerText === "Start animatie") {
+      stopAnimation.innerText = "Stop animatie";
+    } else {
+      stopAnimation.innerText = "Start animatie";
     }
+
+    // stop de keyframe animaties
+    cirkels.forEach(cirkel => {
+      cirkel.classList.toggle("static")
+    });
+
+    // zoek de parrent container en verander de layout met een class
+    const parentContainer = e.target.closest('.index-main');
+    parentContainer.classList.toggle('static-main');
+  });
+
+
+  // genereer random getallen, seconden, voor de keyframe animatie
+  function setPropertyXY() {
+    cirkels.forEach(cirkel => {
+      // https://www.w3schools.com/js/js_random.asp
+      durX = Math.floor(Math.random() * 10);
+      durY = Math.floor(Math.random() * 10);
+      // z-index
+      z = Math.floor(Math.random() * 100);
+
+      // maak custom properties van de random seconden
+      cirkel.style.setProperty('--durX', durX)
+      cirkel.style.setProperty('--durY', durY)
+      cirkel.style.setProperty('--z', z)
+    });
+  }
 </script>
 
 <script>
 
-    document.querySelectorAll('.card-layout').forEach(card => {
-        card.addEventListener('click', function () {
-            const cardInner = this.querySelector('.card-inner');
-            cardInner.classList.toggle('do-flip'); // Draai de kaart om
-        });
+  document.querySelectorAll('.card-layout').forEach(card => {
+    card.addEventListener('click', function () {
+      const cardInner = this.querySelector('.card-inner');
+      cardInner.classList.toggle('do-flip'); // Draai de kaart om
     });
+  });
 
 </script>
 
