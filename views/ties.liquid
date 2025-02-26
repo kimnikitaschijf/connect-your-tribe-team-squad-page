@@ -4,6 +4,8 @@
 	<input type="checkbox" id="tint" hidden>
     <button class="button-stop-animatie" type="button">stop animatie</button>
 
+ 
+
 	{% for person in persons %}
 	<label for="tint" class="label-focus" tabindex="0" aria-hidden="true">
 		<article class="profile-bubble" aria-label="{{ person.name }}" style="--fav_color: {{ person.fav_color }}">
@@ -15,7 +17,30 @@
 	{%- endfor %}
 
 	<div class="tinted-background" aria-hidden="true"></div>
+
+
+    <footer class="comment-section">
+
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+
+        <form method="post" action="/ties">
+            <label>naam:
+                <input type="text" name="naam" required>
+            </label>
+            
+            <label>tekstje:
+                <input type="text" name="bericht" required>
+            </label>
+            <button type="submit">voeg toe!</button>
+        </form>
+
+    </footer>
 </main>
+
+
+
 
 <style>
 .index-main {
