@@ -3,38 +3,54 @@
 <main class="index-main">
 
   <h1>Squadpage</h1>
-  <p class="sub-title">Ontdek meer over onze squad hieronder!</p>
+  <p class="sub-title">Ontdek meer over squad 1G hieronder!</p>
 
   <input type="checkbox" id="tint" hidden>
-  <button class="button-stop-animatie" type="button">stop animatie</button>
+  <button class="button-stop-animatie" type="button">Stop animatie</button>
 
-  {% for person in persons %}
-  <figure>
-    <label for="tint" class="label-focus" tabindex="0" aria-hidden="true">
+  <ul class="filter-select-buttons">
+    <li><a href="/">Avatar</a></li>
+    <li><a href="/dier/">Dier</a></li>
+    <li><a href="/emoji/">Emoji</a></li>
+    <li><a href="/eten/">Eten</a></li>
+    <li><a href="/hobby/">Hobby</a></li>
+    <li><a href="/kleur/">Kleur</a></li>
+    <li><a href="/land/">Land</a></li>
+    <li><a href="/verjaardag/">Verjaardag</a></li>
+  </ul>
 
-      <!-- Voorkant van de kaart -->
-      <div class="{{ show }} profile-bubble">
-        {% if show == 'avatar' %}
-        {% if person.avatar and person.avatar != '' %}
-        <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}" />
-        {% else %}
-        <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
+  <div class="figure-container">
+    {% for person in persons %}
+    <figure>
+      <label for="tint" class="label-focus" tabindex="0">
+
+        <!-- Voorkant van de kaart -->
+        <div class="profile-bubble">
+          {% if show == 'avatar' %}
+          {% if person.avatar and person.avatar != '' %}
+          <img src="{{ person[show] }}" alt="Avatar van {{ person.name }}"/>
+          {% else %}
+          <img src="https://github.com/{{ person.github_handle }}.png" alt="Avatar van {{ person.name }}" />
+          {% endif %}
+          {% else %}
+          <article class="{{ show }}">{{ person[show] }}</article>
         {% endif %}
-        {% else %}
-        <article>{{ person[show] }}</article>
-        {% endif %}
-      </div>
-    </label>
 
-    <!-- Achterkant van de kaart -->
-    <div id="back">
-      <span class="back-text">{{ person.name }}</span>
-    </div>
-    </label>
-  </figure>
+        <form action="/like" method="POST">
+        <input type="hidden" name="studentid" value="{{ person.id }}">
+        <button type="submit" class="like-button">
+          ❤️
+        </button>
+      </form>
 
+      <span class="like-count">{{ likes[person.id] | default: 0 }} likes</span> <!-- Toon het aantal likes -->
 
-  {%- endfor %}
+        </div>
+      </label>
+
+    </figure>
+    {%- endfor %}
+  </div>
 
   <div class="tinted-background" aria-hidden="true"></div>
 </main>
@@ -66,6 +82,37 @@
     justify-self: center;
   }
 
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    margin: 4.5rem 0rem 1.5rem 0rem;
+    padding: 0;
+    gap: 1rem;
+
+    li {
+      border-radius: 50rem;
+      padding: 0.7rem;
+      border: 0.2rem solid #67c09f;
+      background-color: #88E2C1;
+      cursor: pointer;
+
+      a {
+        color: #04083F;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .fav_emoji {
+    font-size: 4.5rem;
+}
+
+    .fav_color {
+      background-color: {{ person.fav_color }};
+    }
+
   .index-main {
     #tint:checked~.tinted-background {
       display: block;
@@ -80,7 +127,7 @@
       position: fixed;
       inset: 0;
       background-color: rgba(0, 0, 0, 0.5);
-      z-index: 98;
+      z-index: 99;
       animation: overlay-transition 500ms ease-in;
     }
 
@@ -88,22 +135,33 @@
       position: absolute;
       top: 1em;
       left: 1em;
-      border: 1px solid black;
-      background-color: beige;
-      border-radius: 15px;
+      color: #88E2C1;
       width: 8em;
-      padding: 0.5em;
-      cursor: pointer;
       z-index: 101;
+      border-radius: 50rem;
+      padding: 0.7rem;
+      border: 0.2rem solid #88E2C1;
+      background-color: #04083F;
+      text-decoration: underline;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1em;
 
       &:hover {
         filter: brightness(0.8);
       }
 
-      &:active {
-        scale: 0.8;
+      @media (max-width: 1120px) {
+        left: 50%;
+        transform: translateX(-50%);
+        top: 8.5rem;
       }
+
     }
+  }
+
+  .figure-container {
+    margin-top: 3.5rem;
   }
 
   .profile-bubble {
@@ -122,7 +180,6 @@
     background-color: #b594fc;
     border: 5px solid var(--fav_color, #9F7AEF);
     cursor: pointer;
-    transition: transform 0.3s ease-in-out;
     z-index: var(--z);
 
     animation:
@@ -134,43 +191,44 @@
       filter: brightness(1.2);
     }
 
+    .like-button, .like-count {
+      display: none;
+    }
+
     &.open {
       display: grid;
       grid-template-columns: min-content 1fr 4em;
       grid-template-rows: 1fr 1fr;
+      animation: none;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      animation: none;
       z-index: 101;
       height: 10em;
       width: 15em;
       border-radius: 15px;
+      
+      .like-button, .like-count {
+        display: block;
+      }
     }
 
     &.static {
       position: relative;
       animation: none;
 
-      &:active {
-        scale: 0.7;
-      }
 
       &.open {
-        display: flex;
-        flex-direction: column;
-        width: var(--size-circle);
-        height: var(--size-circle);
-        border-radius: 50%;
-
-        .name {
-          width: 5em;
-          text-wrap: wrap;
-          align-self: center;
-          color: white;
-          margin: 0;
-        }
+        display: grid;
+        grid-template-columns: min-content 1fr 4em;
+        grid-template-rows: 1fr 1fr;
+        animation: none;
+        z-index: 101;
+        height: 10em;
+        width: 15em;
+        border-radius: 15px;
+        position: absolute;
 
         .website {
           display: none;
@@ -185,16 +243,13 @@
     border-radius: 50%;
   }
 
-  #back .back-text {
-    position: absolute;
-    color: #88E2C1;
-    border-radius: 2rem;
-    margin: 1rem;
-    font-size: 1rem;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+  .static-main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 2fr));
+    gap: 1.5rem;
+    justify-items: center;
   }
+
 
   @keyframes transX {
     0% {
@@ -259,7 +314,7 @@
     });
 
     // zoek de parrent container en verander de layout met een class
-    const parentContainer = e.target.closest('.index-main');
+    const parentContainer = document.querySelector('.figure-container');
     parentContainer.classList.toggle('static-main');
   });
 

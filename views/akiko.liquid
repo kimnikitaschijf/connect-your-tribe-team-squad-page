@@ -1,0 +1,22 @@
+{% render 'partials/head.liquid' %}
+
+<h2>Students</h2>
+<ul class="squad">
+  {% for person in persons %}
+    <li class="studenten">
+      <img src="{{ person.avatar }}" class="avatars">
+      <a href="/student/{{ person.id }}">{{ person.name }}</a>
+      
+      <form action="/like" method="POST">
+        <input type="hidden" name="studentid" value="{{ person.id }}">
+        <button type="submit" class="like-button">
+          ❤️
+        </button>
+      </form>
+
+      <span>{{ likes[person.id] | default: 0 }} likes</span> <!-- Toon het aantal likes -->
+    </li>
+  {% endfor %}
+</ul>
+
+{% render 'partials/foot.liquid' %}
