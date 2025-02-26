@@ -34,6 +34,7 @@ app.get('/', async function (request, response) {
   const person = await fetch('https://fdnd.directus.app/items/person/?fields=id,name,squads.squad_id.name,fav_color,fav_emoji,fav_country,birthdate,avatar,github_handle,fav_animal,fav_hobby,fav_kitchen&filter[squads][squad_id][name][_eq]=1G&filter[birthdate][_neq]=null&sort=birthdate')
   const personResponseJSON = await person.json()
 
+
   response.render('index.liquid', {
     persons: personResponseJSON.data,
     show: "avatar",
@@ -51,12 +52,19 @@ app.get('/kim', async function (request, response) {
 })
 
 app.get('/akiko', async function (request, response) {
-  const messagesResponse = await fetch(`https://fdnd.directus.app/items/messages/?filter={"for":"Team ${teamName}"}`)
-  const messagesResponseJSON = await messagesResponse.json()
+  // const person = await fetch('https://fdnd.directus.app/items/person/?fields=id,name,squads.squad_id.name,fav_color,fav_emoji,fav_country,birthdate,avatar,github_handle,fav_animal,fav_hobby,fav_kitchen&filter[squads][squad_id][name][_eq]=1G&filter[birthdate][_neq]=null&sort=birthdate')
+  // const personResponseJSON = await person.json()
+
+  const personResponse = await fetch('https://fdnd.directus.app/items/person/?fields=id,name,squads.squad_id.name,fav_color,birthdate,avatar,custom&filter=%7B%22_and%22:[%7B%22fav_color%22:%7B%22_neq%22:%22null%22%7D%7D,%7B%22birthdate%22:%7B%22_neq%22:%22null%22%7D%7D,%7B%22squads%22:%7B%22squad_id%22:%7B%22name%22:%7B%22_eq%22:%221G%22%7D%7D%7D%7D,%7B%22avatar%22:%7B%22_neq%22:%22null%22%7D%7D]%7D')
+  const personResponseJSON = await personResponse.json()
+  
 
   response.render('akiko.liquid', {
     teamName: teamName,
-    messages: messagesResponseJSON.data
+    // messages: messagesResponseJSON.data,
+    likes:likes,
+    persons: personResponseJSON.data
+
   })
 })
 
@@ -207,4 +215,31 @@ app.get("/hobby/", async function (request, response) {
     show: "fav_hobby",
     squads: squadResponseJSON.data,
   });
+});
+
+let likes = {}; 
+
+app.use(express.urlencoded({ extended: true })); // Nodig om formulierdata te lezen
+
+app.post('/like', (req, res) => {
+  const studentId = req.body.studentid; // Haal het ID uit het formulier
+
+  if (!studentId) {
+    return res.status(400).send('Geen student ID ontvangen');
+  }
+
+
+  if (likes[studentId]) {
+    likes[studentId]--;
+    if (likes[studentId] <= 0) delete likes[studentId]; 
+  } else {
+    likes[studentId] = 1; 
+  }
+
+  console.log("Likes:", likes);
+
+
+  // Stuur de gebruiker terug naar de hoofdpagina om de nieuwe likes te zien
+  // res.json({ success: true, likes: likes[studentId] || 0 });
+  res.redirect('/akiko');
 });
