@@ -63,8 +63,27 @@ app.get('/ties', async function (request, response) {
   const person = await fetch('https://fdnd.directus.app/items/person/?fields=name,squads.squad_id.name,github_handle,fav_color&filter={"github_handle":{"_neq":"null"}}')
   const personResponseJSON = await person.json()
 
-  response.render('ties.liquid', { persons: personResponseJSON.data })
+  response.render('ties.liquid', { 
+    persons: personResponseJSON.data,
+    messages: messages
+  });
 })
+
+  // comment sectie
+  let messages = []; // Shared messages for all pages
+
+  app.post('/ties', async function (request, response) {
+      let naam = request.body.naam;
+      let bericht = request.body.bericht;
+  
+      if (naam && bericht) { // Prevent empty submissions
+          let formattedMessage = `${naam}: ${bericht}`;
+          messages.push(formattedMessage);
+      }
+  
+      response.redirect(303, '/ties'); // Stay on /ties after submitting
+  });
+  // comment sectie
 
 app.post('/', async function (request, response) {
   await fetch('https://fdnd.directus.app/items/messages/', {
