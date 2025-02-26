@@ -1,328 +1,122 @@
 {% render 'partials/head.liquid' %}
 
-<main class="index-main">
-	<input type="checkbox" id="tint" hidden>
-    <button class="button-stop-animatie" type="button">stop animatie</button>
+<main>
 
- 
-
-	{% for person in persons %}
-	<label for="tint" class="label-focus" tabindex="0" aria-hidden="true">
-		<article class="profile-bubble" aria-label="{{ person.name }}" style="--fav_color: {{ person.fav_color }}">
-			<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none"><path d="M25 25C22.7083 25 20.7465 24.184 19.1146 22.5521C17.4827 20.9201 16.6667 18.9583 16.6667 16.6666C16.6667 14.375 17.4827 12.4132 19.1146 10.7812C20.7465 9.14929 22.7083 8.33331 25 8.33331C27.2917 8.33331 29.2535 9.14929 30.8854 10.7812C32.5174 12.4132 33.3333 14.375 33.3333 16.6666C33.3333 18.9583 32.5174 20.9201 30.8854 22.5521C29.2535 24.184 27.2917 25 25 25ZM8.33334 41.6666V35.8333C8.33334 34.6528 8.63716 33.5677 9.2448 32.5781C9.85244 31.5885 10.6597 30.8333 11.6667 30.3125C13.8195 29.2361 16.007 28.4288 18.2292 27.8906C20.4514 27.3524 22.7083 27.0833 25 27.0833C27.2917 27.0833 29.5486 27.3524 31.7708 27.8906C33.9931 28.4288 36.1806 29.2361 38.3333 30.3125C39.3403 30.8333 40.1476 31.5885 40.7552 32.5781C41.3629 33.5677 41.6667 34.6528 41.6667 35.8333V41.6666H8.33334ZM12.5 37.5H37.5V35.8333C37.5 35.4514 37.4045 35.1041 37.2136 34.7916C37.0226 34.4791 36.7708 34.2361 36.4583 34.0625C34.5833 33.125 32.691 32.4219 30.7813 31.9531C28.8715 31.4844 26.9445 31.25 25 31.25C23.0556 31.25 21.1285 31.4844 19.2188 31.9531C17.309 32.4219 15.4167 33.125 13.5417 34.0625C13.2292 34.2361 12.9774 34.4791 12.7865 34.7916C12.5955 35.1041 12.5 35.4514 12.5 35.8333V37.5ZM25 20.8333C26.1458 20.8333 27.1267 20.4253 27.9427 19.6094C28.7587 18.7934 29.1667 17.8125 29.1667 16.6666C29.1667 15.5208 28.7587 14.5399 27.9427 13.7239C27.1267 12.908 26.1458 12.5 25 12.5C23.8542 12.5 22.8733 12.908 22.0573 13.7239C21.2413 14.5399 20.8333 15.5208 20.8333 16.6666C20.8333 17.8125 21.2413 18.7934 22.0573 19.6094C22.8733 20.4253 23.8542 20.8333 25 20.8333Z" fill="#1D1B20"/></svg>
-			<span class="name">{{ person.name }}</span>
-			<span class="website">bekijk mijn werk op <a href="https://github.com/{{ person.github_handle }}?tab=repositories">github</a></span>
-		</article>
-	</label>
-	{%- endfor %}
-
-	<div class="tinted-background" aria-hidden="true"></div>
-
-
-    <footer class="comment-section">
-
+<footer class="comment-section">
+    <div class="comment-messages">
         {% for message in messages %}
             <p>{{ message }}</p>
         {% endfor %}
+    </div>
 
-        <form method="post" action="/ties">
-            <label>naam:
-                <input type="text" name="naam" required>
-            </label>
-            
-            <label>tekstje:
-                <input type="text" name="bericht" required>
-            </label>
-            <button type="submit">voeg toe!</button>
-        </form>
+    <form class="comment-form" method="post" action="/ties">
+    <div class="input-container">
+        <label>Naam:
+            <input type="text" name="naam" required>
+        </label>
+        <label>Text:
+            <input type="text" name="bericht" required>
+        </label>
+    </div>
 
-    </footer>
+    <button type="submit">Verzend</button>
+</form>
+
+</footer>
 </main>
 
 
 
 
 <style>
-.index-main {
-    #tint:checked {
-        & ~ .tinted-background {
-            display: block;
-        }
-
-        /* als de cirkel animatie gestopt is, komt er geen bacground tint wanneer er op een cirkel geklikt wordt  */
-        & ~ .label-focus:has(.profile-bubble.static) ~ .tinted-background {
-            display: none;
-        }
-    }
-
-    /* #tint:checked  */
-
-
-
-    .tinted-background {
-        display: none;
-        position: fixed;
-        /* top, right, bottom and left = 0 */
-        inset: 0;
-
-        background-color: rgba(0, 0, 0, 0.5);
-        /* achter profile-bubble */
-        z-index: 98;
-        animation: overlay-transition 500ms ease-in;
-    }
-
-    .button-stop-animatie {
-        position: absolute;
-        top: 1em;
-        left: 1em;
-        border: 1px solid black;
-        background-color: beige;
-        border-radius: 15px;
-        width: 8em;
-        padding: 0.5em;
-        cursor: pointer;
-        z-index: 101;
-
-        &:hover {
-            filter: brightness(0.8);
-        }
-
-        &:active {
-            scale: 0.8;
-        }
-    }
-
-    .label-focus {
-        &:focus-within article {
-            border-color: rgb(218, 149, 46);
-        }
-    }
-
     
-    .profile-bubble {
-        --size-circle: 7em;
     
+    body {
+        background-color: #05083F;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    
+    /* Message container with scrolling */
+    .comment-messages {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: .6em;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-    
-        background-color: #b594fc;
-        /* de fav_color uit Whois, wordt in HTML gemaakt tot een custom property, die hier gebruikt wordt */
-        border: 5px solid var(--fav_color);
-        width: var(--size-circle);
-        aspect-ratio: 1;
-        border-radius: 50%;
-    
-        cursor: pointer;
-        z-index: var(--z);
-    
-        animation:
-        transX calc(var(--durX) * 1s) linear infinite alternate,
-        transY calc(var(--durY) * 1s) linear infinite alternate
-        ;
-        
-        /* stop animatie bij een hover */
-        /* https://stackoverflow.com/questions/75906720/how-to-make-css-animation-slows-down-to-stop-on-hover-and-continue-moving-infin */
-        &:hover {
-            animation-play-state: paused;
-            filter: brightness(1.2);
-        }
-
-        .name {
-            width: 5em;
-            text-wrap: wrap;
-            text-align: center;
-            color: white;
-        }
-    
-        .squad {
-            display: none;
-            color: white;
-        }
-    
-        .website {
-            display: none;
-            color: white;
-        }
+        overflow-anchor: auto;
     }
     
-    /* de class open wordt toegeveogd met js als profile-bubble geklikt wordt */
-    .profile-bubble.open {
-        display: grid;
-        grid-template-columns: min-content 1fr 4em;
-        grid-template-rows: 1fr 1fr;
-        position: absolute;
-        top: 50%;
+    /* Makes sure long messages wrap */
+    .comment-messages p {
+        background: #88E2C1;
+        padding: .7em;
+        border-radius: .4em;
+        margin: .35em 0;
+        font-size: .9em;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+    }
+    
+    /* Fixes the input form at the bottom of the screen */
+    .comment-form {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 0;
         left: 50%;
-        transform: translate(-50%, -50%);
-
-        animation: none;
-        z-index: 101;
+        transform: translateX(-50%);
+        width: 100vw;
+        background: #9F7AEF;
+        padding: .6em;
+        align-items: center;
+    }
     
-        height: 10em;
-        width: 15em;
-        border-radius: 15px;
+    .input-container {
+        display: flex;
+        gap: 1em; /* Adds space between the inputs */
+        width: 100%;
+        justify-content: center;
+        gap: 3em;
+    }
     
-        svg {
-            align-self: end;
-        }
+    /* Input field styling */
+    .comment-form input {
+        padding: .5em;
+        margin-bottom: .5em;
+        border: 1px solid #dddddd;
+        border-radius: .4em;
+        font-size: 1em;
+        width: 100%;
+    }
     
-        .name {
-            text-wrap: nowrap;
-            align-self: end;
-            margin-left: 1em;
-        }
-    
-        .squad {
-            display: block;
-            align-self: end;
-        }
-    
-        .website {
-            display: block;
-            grid-area: 2 / 2;
-            text-wrap: nowrap;
-            margin-left: 1em;
-        }
+    /* Submit button */
+    .comment-form button {
+        background: #05083F;
+        color: white;
+        border: none;
+        padding: .5em;
+        margin-left: 2em;
+        margin-right: 2em;
+        border-radius: .4em;
+        cursor: pointer;
+        width: 100vw;
+        font-size: 1em;
+        margin-top: .5em;
     }
 
-    /* de class die de animatie van alle cirkels stopt als de stop animatio button geklikt wordt */
-    .profile-bubble.static {
-        position: relative;
-        animation: none;
-
-        /* hier komt de coin flip animatie */
-        &:active {
-            scale: 0.7;
-        }
-
-        &.open {
-            display: flex;
-            flex-direction: column;
-
-            width: var(--size-circle);
-            height: var(--size-circle);
-            border-radius: 50%;
-
-            svg {
-                align-self: center;
-            }
-
-            .name {
-                width: 5em;
-                text-wrap: wrap;
-                align-self: center;
-                color: white;
-                margin: 0;
-            }
-
-            .website {
-                display: none;
-            }
-        }
-    }
+    
+.comment-form button:hover {
+    background: #080e80;
 }
 
-
-/* de class met de layout voor de main als de stop animatie button geklikt wordt */
-.static-main {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(5em, 1fr));
-    gap: 2em;
-    justify-items: center;
-
-    @media (min-width: 335px) {
-	    grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
-    }
-
-    @media (min-width: 480px) {
-        margin: 0 5em;
-    }
-
-    @media (min-width: 960px) {
-	    grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
-    }
-
-    @media (min-width: 1120px) {
-	    grid-template-columns: repeat(5, 1fr);
-    }
-}
-
-@keyframes transX {
-    0% {
-        translate: 0;
-    }
-    100% {
-        translate: calc(100dvw - var(--size-circle));
-    }
-}
-
-@keyframes transY {
-    0% {
-        transform: translatey(0);
-    }
-    100% {
-        transform: translatey(calc(100dvh - var(--size-circle)));
-    }
-}
 </style>
 
 <script>
-// selecteer alle cirkels
-let cirkels = document.querySelectorAll(".profile-bubble")
-let stopAnimation = document.querySelector(".button-stop-animatie")
-
-// genereer nieuwe custom properties
-setPropertyXY()
-// genereer nieuwe custom properties om de 10s
-// let cirkelAnimation = setInterval(setPropertyXY, 10000);
-
-
-// Bij een click wordt een class toegevoegd aan de ge-klikte cirkel
-cirkels.forEach(cirkel => {
-    cirkel.addEventListener("click", () => {
-        cirkel.classList.toggle("open")
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    let messageContainer = document.querySelector(".comment-messages");
+    messageContainer.scrollTop = messageContainer.scrollHeight;
 });
-
-
-// stop animaties als de stop animatie button geklikt wordt
-stopAnimation.addEventListener("click", (e) => {
-    // verander de tekst in de button
-    if (stopAnimation.innerText === "Start animatie") {
-        stopAnimation.innerText = "Stop animatie";
-    } else {
-        stopAnimation.innerText = "Start animatie";
-    }
-
-    // stop de keyframe animaties
-    cirkels.forEach(cirkel => {
-        cirkel.classList.toggle("static")
-    });
-
-    // zoek de parrent container en verander de layout met een class
-    const parentContainer = e.target.closest('.index-main');
-    parentContainer.classList.toggle('static-main');
-});
-
-
-// genereer random getallen, seconden, voor de keyframe animatie
-function setPropertyXY() {
-    cirkels.forEach(cirkel => {
-        // https://www.w3schools.com/js/js_random.asp
-        durX = Math.floor(Math.random() * 10);
-        durY = Math.floor(Math.random() * 10);
-        // z-index
-        z = Math.floor(Math.random() * 100);
-
-        // maak custom properties van de random seconden
-        cirkel.style.setProperty('--durX', durX)
-        cirkel.style.setProperty('--durY', durY)
-        cirkel.style.setProperty('--z', z)
-    });
-}
 </script>
 
 {% render 'partials/foot.liquid' %}
