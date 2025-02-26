@@ -23,12 +23,12 @@ app.use(express.urlencoded({ extended: true }))
 
 
 app.get('/', async function (request, response) {
-  const messagesResponse = await fetch(`https://fdnd.directus.app/items/messages/?filter={"for":"Team ${teamName}"}`)
-  const messagesResponseJSON = await messagesResponse.json()
+  const person = await fetch('https://fdnd.directus.app/items/person/?fields=id,name,squads.squad_id.name,fav_color,fav_emoji,fav_country,birthdate,avatar,github_handle,fav_animal,fav_hobby,fav_kitchen&filter[squads][squad_id][name][_eq]=1G&filter[birthdate][_neq]=null&sort=birthdate')
+  const personResponseJSON = await person.json()
 
   response.render('index.liquid', {
-    teamName: teamName,
-    messages: messagesResponseJSON.data
+    persons: personResponseJSON.data,
+    show: "avatar",
   })
 })
 
