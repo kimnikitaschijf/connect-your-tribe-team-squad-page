@@ -34,7 +34,17 @@
           {% endif %}
           {% else %}
           <article>{{ person[show] }}</article>
-          {% endif %}
+        {% endif %}
+
+        <form action="/like" method="POST">
+        <input type="hidden" name="studentid" value="{{ person.id }}">
+        <button type="submit" class="like-button">
+          ❤️
+        </button>
+      </form>
+
+      <span class="like-count">{{ likes[person.id] | default: 0 }} likes</span> <!-- Toon het aantal likes -->
+
         </div>
       </label>
 
@@ -178,6 +188,10 @@
       filter: brightness(1.2);
     }
 
+    .like-button, .like-count {
+      display: none;
+    }
+
     &.open {
       display: grid;
       grid-template-columns: min-content 1fr 4em;
@@ -191,6 +205,10 @@
       height: 10em;
       width: 15em;
       border-radius: 15px;
+      
+      .like-button, .like-count {
+        display: block;
+      }
     }
 
     &.static {

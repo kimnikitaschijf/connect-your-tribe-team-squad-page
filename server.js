@@ -44,6 +44,7 @@ app.get('/', async function (request, response) {
   response.render('index.liquid', {
     persons: personResponseJSON.data,
     show: "avatar",
+    likes:likes
   })
 })
 
@@ -249,5 +250,5 @@ app.post('/like', (req, res) => {
 
   // Stuur de gebruiker terug naar de hoofdpagina om de nieuwe likes te zien
   // res.json({ success: true, likes: likes[studentId] || 0 });
-  res.redirect('/akiko');
+  res.redirect('/');
 });
