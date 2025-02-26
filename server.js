@@ -9,6 +9,14 @@ const teamName = 'Flux';
 
 const app = express()
 
+let filters = {
+  name: null,
+  fav_color: null,
+  birthdate: null,
+  avatar: null,
+  emoji: null,
+};
+
 const baseUrl =
   "https://fdnd.directus.app/items/person/?fields=id,name,squads.squad_id.name,fav_color,fav_emoji,fav_country,birthdate,avatar,github_handle,fav_animal,fav_hobby,fav_kitchen&filter[squads][squad_id][name][_eq]=1G&filter[birthdate][_neq]=null&sort=birthdate";
 
