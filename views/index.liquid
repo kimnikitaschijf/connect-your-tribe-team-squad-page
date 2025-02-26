@@ -122,24 +122,25 @@
       }
     }
 
-    .profile-bubble {
-      --size-circle: 7em;
+  .profile-bubble {
+  --size-circle: 7em;
 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
 
-      background-color: #b594fc;
-      /* de fav_color uit Whois, wordt in HTML gemaakt tot een custom property, die hier gebruikt wordt */
-      border: 5px solid var(--fav_color);
-      width: var(--size-circle);
-      aspect-ratio: 1;
-      border-radius: 50%;
+  width: var(--size-circle);
+  height: var(--size-circle);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: #b594fc;
+  border: 5px solid var(--fav_color, #9F7AEF); /* fallback kleur */
 
-      cursor: pointer;
-      z-index: var(--z);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  z-index: var(--z);
 
       animation:
         transX calc(var(--durX) * 1s) linear infinite alternate,
@@ -206,6 +207,7 @@
     .profile-bubble.static {
       position: relative;
       animation: none;
+    
 
       /* hier komt de coin flip animatie */
       &:active {
@@ -237,28 +239,10 @@
         }
       }
     }
-  }
+  
 
 
   /* de class met de layout voor de main als de stop animatie button geklikt wordt */
-
-    /* Card layout voor de cirkels */
-    .card-layout {
-      width: 6rem;
-      height: 6rem;
-      border-radius: 50%;
-      background-color: #B594FC;
-      border: 0.5rem solid #9F7AEF;
-      cursor: pointer;
-      transition: transform 0.3s ease-in-out;
-
-      /* Hover effect zoom cirkel */
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  
-
 
   @keyframes transX {
     0% {
