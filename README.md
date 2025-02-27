@@ -107,16 +107,17 @@ https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/11c59
 Dit zorgt ervoor dat de berichten die mensen sturen ook daadwerkelijk te zien zijn.
 
 Daarnaast zorgt deze js ervoor dat het ook daadwerkelijk functioneerd.
-https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L96-L108
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L96-L108
 Er word eerst een POST request gedaan op de route /chatten, daar komt de data ook binnen als iemand een 'formulier' verzend.
-https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L99-L100
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L99-L100
 Hier worden de gegevens die de persoon heeft ingevuld in het 'formulier' uit request.body gehaald.
-https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L102
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L102
 Dit controlleerd of alle 2 de velden zijn ingevuld, zo niet word het 'formulier' ook niet opgeslagen.
-https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L103
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L103
 Een string word gemaakt van het bericht bijvoorbeeld "Ties: Hoi"
-https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L104
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L104
 Na het verzenden wordt de gebruiker doorgestuurd naar /chatten. De pagina herlaad daardoor en nieuwe berichten worden geladen.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L107
 
 ### Responsive
 Als de animatie van de cirkels aan is, blijven de cirkels binnen het scherm door gebruik te maken van dvh en dvw (dynamic viewport height en dynamic viewport width). De breedte van de cirkels is opgeslagen in een custom property.
