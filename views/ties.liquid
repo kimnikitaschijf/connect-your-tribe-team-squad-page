@@ -14,7 +14,7 @@
         <label>Naam:
             <input type="text" name="naam" required>
         </label>
-        <label>Text:
+        <label>Bericht:
             <input type="text" name="bericht" required>
         </label>
     </div>
@@ -34,19 +34,31 @@
     body {
         background-color: #05083F;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
     }
     
-    /* Message container with scrolling */
+    /* berichten container */
     .comment-messages {
-        flex-grow: 1;
         overflow-y: auto;
         padding: .6em;
         display: flex;
         flex-direction: column;
         overflow-anchor: auto;
+        max-height: calc(100vh - 9em); /* berichten overlap fix */
+
+        @media screen and (max-width: 700px) {
+            max-height: calc(100vh - 7.8em); /* berichten overlap fix */
+        }
+
+        @media screen and (max-width: 470px) {
+            max-height: calc(100vh - 10.6em); /* berichten overlap fix */
+        }
     }
     
-    /* Makes sure long messages wrap */
+    /* berichten */
     .comment-messages p {
         background: #88E2C1;
         padding: .7em;
@@ -58,7 +70,7 @@
         max-width: 100%;
     }
     
-    /* Fixes the input form at the bottom of the screen */
+    /* invoerveld + verzend button container */
     .comment-form {
         display: flex;
         flex-direction: column;
@@ -67,20 +79,28 @@
         left: 50%;
         transform: translateX(-50%);
         width: 100vw;
+        /* height: 9em; */
         background: #9F7AEF;
         padding: .6em;
         align-items: center;
     }
     
+    /* invoerveld container */
     .input-container {
         display: flex;
-        gap: 1em; /* Adds space between the inputs */
+        gap: 1em;
         width: 100%;
         justify-content: center;
         gap: 3em;
+
+        @media screen and (max-width: 470px) {
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
     }
     
-    /* Input field styling */
+    /* invoervelden */
     .comment-form input {
         padding: .5em;
         margin-bottom: .5em;
@@ -88,27 +108,29 @@
         border-radius: .4em;
         font-size: 1em;
         width: 100%;
+
+        @media screen and (max-width: 700px) {
+            width: 8em;
+        }
     }
     
-    /* Submit button */
+    /* verzend button */
     .comment-form button {
         background: #05083F;
         color: white;
         border: none;
         padding: .5em;
-        margin-left: 2em;
-        margin-right: 2em;
         border-radius: .4em;
         cursor: pointer;
-        width: 100vw;
+        width: 100%;
         font-size: 1em;
         margin-top: .5em;
     }
 
-    
-.comment-form button:hover {
-    background: #080e80;
-}
+    /* verzend button hover */
+    .comment-form button:hover {
+        background: #010114;
+    }
 
 </style>
 
