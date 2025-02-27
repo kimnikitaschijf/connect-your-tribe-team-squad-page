@@ -7,6 +7,15 @@ De instructie vind je in: [INSTRUCTIONS](https://github.com/fdnd-task/connect-yo
 
   * [Beschrijving](#beschrijving)
   * [Kenmerken](#kenmerken)
+      * [checkbox en label voor achtergrond tint](#checkbox-en-label-voor-achtergrond-tint)
+      * [stop animatie button](#stop-animatie-button)
+      * [De cirkels](#de-cirkels)
+      * [Cirkel animatie](#Cirkel-animatie)
+      * [Random number voor cirkel animatie](#Random-number-voor-cirkel-animatie)
+      * [Like button in de open cirkels](#Like-button-in-de-open-cirkels)
+      * [Filters](#Filters)
+      * [Chat pagina](#Chat-pagina)
+      * [Responsive](#Responsive)
   * [Installatie](#installatie)
   * [Gebruik](#gebruik)
   * [Bronnen](#bronnen)
@@ -19,7 +28,16 @@ De instructie vind je in: [INSTRUCTIONS](https://github.com/fdnd-task/connect-yo
 
 Op de pagina ziet de gebruiker als eerste bewegende cirkels met de GitHub profiel foto's van studenten. Bij elke refresh van de pagina krijgen de cirkels een andere richting.
 
+
+https://github.com/user-attachments/assets/489a52ea-7d1a-4252-aa58-51c84eaaefea
+
+
+
 Wanneer de gebruiker met de muis over een cirkel hovert, stopt deze met bewegen. Bij een klik opent de cirkel groter, waarna de gebruiker de naam van de student ziet, een link naar diens GitHub profiel, en een like button. Met de like buttonb kan de gebruiker een like geven aan die student.
+
+
+https://github.com/user-attachments/assets/a7e56994-33a2-4385-9293-2fc2ea592f27
+
 
 Bovenaan de pagina is er een knop die de animatie stopt. Zodra deze knop wordt ingedrukt, komen alle cirkels in kolommen naast elkaar te staan, zodat ze niet meer bewegen.
 
@@ -27,6 +45,7 @@ Daarna zijn er acht filters beschikbaar: avatar (standaard aan wanneer de pagina
 Wanneer op een filter wordt geklikt, verandert de profielfoto naar het bijbehorende filtertype. Bijvoorbeeld, bij het dier-filter komt er een emoji van dat dier in de cirkel. Bij eten verschijnt de emoji van het favoriete gerecht, bij land komt de vlag-emoji van dat land tevoorschijn, en zo verder voor de andere filters.
 
 En als laatste hebben we een knop die de gebruiker naar de chat pagina brengt, Wanneer de gebruiker op de "chat met onze squad!" button klikt, wordt de gebruiker doorgestuurd naar de chatpagina. Op deze pagina heeft de gebruiker de mogelijkheid om berichten achter te laten. deze berichten worden in een database opgeslagen
+![team_sp_header](https://github.com/user-attachments/assets/0b52ded7-c36b-4697-b58c-31a654350136)
 
 ## Kenmerken
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met Javascript gedaan en hoe? Misschien heb je een framwork of library gebruikt? -->
@@ -89,7 +108,27 @@ Bij het verjaardag filter is de data uit de database omgezet naar de leeftijd. I
 
 ### Chat pagina
 Met een post route in server.js en een formulier met een submit button worden de berichten vanuit het formulier opgehaald en naar de database gestuurd. Wanneer de gebruiker het formulier invult en op de submit button klikt, wordt het bericht naar de server gestuurd via de post route. Wanneer de pagina opnieuw wordt geladen of door iemand anders wordt bezocht, worden de voorgaande berichten opgehaald uit de database en weergegeven op de chat pagina.
-# Ties kian jij dit controleren en aanvullen als het nodig is.
+
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/11c59d872f3bf3c43b3d7793d65007d968aeada2/server.js#L102-L105
+Dit zorgt ervoor dat na de 'naam' van de persoon dubbele puntjes komen zodat er een scheiding wordt gemaakt tussen de 'naam' en het 'bericht' van de persoon.
+
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/11c59d872f3bf3c43b3d7793d65007d968aeada2/views/ties.liquid#L7-L9
+Dit zorgt ervoor dat de berichten die mensen sturen ook daadwerkelijk te zien zijn.
+
+Daarnaast zorgt deze js ervoor dat het ook daadwerkelijk functioneerd.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L96-L108
+
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L98
+Er word eerst een POST request gedaan op de route /chatten, daar komt de data ook binnen als iemand een 'formulier' verzend.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L99-L100
+Hier worden de gegevens die de persoon heeft ingevuld in het 'formulier' uit request.body gehaald.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L102
+Dit controlleerd of alle 2 de velden zijn ingevuld, zo niet word het 'formulier' ook niet opgeslagen.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L103
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L104
+Een string word gemaakt van het bericht bijvoorbeeld "Ties: Hoi"
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L107
+Na het verzenden wordt de gebruiker doorgestuurd naar /chatten. De pagina herlaad daardoor en nieuwe berichten worden geladen.
 
 ### Responsive
 Als de animatie van de cirkels aan is, blijven de cirkels binnen het scherm door gebruik te maken van dvh en dvw (dynamic viewport height en dynamic viewport width). De breedte van de cirkels is opgeslagen in een custom property.
