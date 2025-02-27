@@ -17,6 +17,7 @@
     <li><a href="/kleur/">Kleur</a></li>
     <li><a href="/land/">Land</a></li>
     <li><a href="/verjaardag/">Verjaardag</a></li>
+    <li><a class="chat-button" href="#">Chat met onze squad!</a></li>
   </ul>
 
   <div class="figure-container">
@@ -210,15 +211,20 @@
     gap: 1rem;
 
     li {
-      border-radius: 50rem;
-      padding: 0.7rem;
-      border: 0.2rem solid #67c09f;
-      background-color: #88E2C1;
       cursor: pointer;
 
       a {
         color: #04083F;
         text-decoration: none;
+        background-color: #88E2C1;
+        border-radius: 50rem;
+        padding: 0.7rem;
+      }
+
+      .chat-button {
+        background-color: #04083F;
+        color: #88E2C1;
+        border: 3px solid #88E2C1;
       }
     }
   }
@@ -391,17 +397,17 @@
         border-radius: 15px;
         position: absolute;
 
-        
+
         .website {
           display: none;
         }
 
         img {
-        border-radius: 10%;
-        width: 6rem;
-        height: 6rem;
-        margin: 0.5rem;
-      }
+          border-radius: 10%;
+          width: 6rem;
+          height: 6rem;
+          margin: 0.5rem;
+        }
 
       }
     }
@@ -457,29 +463,29 @@
 
   // Bij een click wordt een class toegevoegd aan de ge-klikte cirkel
   cirkels.forEach(cirkel => {
-  cirkel.addEventListener("click", () => {
-    cirkel.classList.toggle("open");
+    cirkel.addEventListener("click", () => {
+      cirkel.classList.toggle("open");
 
-    const personName = cirkel.querySelector(".person-name");
-    const personBio = cirkel.querySelector(".person-bio");
+      const personName = cirkel.querySelector(".person-name");
+      const personBio = cirkel.querySelector(".person-bio");
 
-    if (personName) {
-      if (cirkel.classList.contains("open")) {
-        personName.style.display = 'block'; 
-      } else {
-        personName.style.display = 'none'; 
+      if (personName) {
+        if (cirkel.classList.contains("open")) {
+          personName.style.display = 'block';
+        } else {
+          personName.style.display = 'none';
+        }
       }
-    }
 
-    if (personBio) {
-      if (cirkel.classList.contains("open")) {
-        personBio.style.display = 'block'; 
-      } else {
-        personBio.style.display = 'none'; 
+      if (personBio) {
+        if (cirkel.classList.contains("open")) {
+          personBio.style.display = 'block';
+        } else {
+          personBio.style.display = 'none';
+        }
       }
-    }
+    });
   });
-});
 
 
   // stop animaties als de stop animatie button geklikt wordt
