@@ -89,7 +89,6 @@ Bij het verjaardag filter is de data uit de database omgezet naar de leeftijd. I
 
 ### Chat pagina
 Met een post route in server.js en een formulier met een submit button worden de berichten vanuit het formulier opgehaald en naar de database gestuurd. Wanneer de gebruiker het formulier invult en op de submit button klikt, wordt het bericht naar de server gestuurd via de post route. Wanneer de pagina opnieuw wordt geladen of door iemand anders wordt bezocht, worden de voorgaande berichten opgehaald uit de database en weergegeven op de chat pagina.
-# Ties kian jij dit controleren en aanvullen als het nodig is.
 
 ### Responsive
 Als de animatie van de cirkels aan is, blijven de cirkels binnen het scherm door gebruik te maken van dvh en dvw (dynamic viewport height en dynamic viewport width). De breedte van de cirkels is opgeslagen in een custom property.
