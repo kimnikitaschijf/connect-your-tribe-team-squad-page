@@ -41,11 +41,22 @@ https://github.com/user-attachments/assets/a7e56994-33a2-4385-9293-2fc2ea592f27
 
 Bovenaan de pagina is er een knop die de animatie stopt. Zodra deze knop wordt ingedrukt, komen alle cirkels in kolommen naast elkaar te staan, zodat ze niet meer bewegen.
 
+
+https://github.com/user-attachments/assets/0043dc98-099f-404e-9c28-5c905846bcde
+
+
 Daarna zijn er acht filters beschikbaar: avatar (standaard aan wanneer de pagina wordt geladen), dier, emoji, eten, hobby, kleur, land en verjaardag.
 Wanneer op een filter wordt geklikt, verandert de profielfoto naar het bijbehorende filtertype. Bijvoorbeeld, bij het dier-filter komt er een emoji van dat dier in de cirkel. Bij eten verschijnt de emoji van het favoriete gerecht, bij land komt de vlag-emoji van dat land tevoorschijn, en zo verder voor de andere filters.
 
+
+https://github.com/user-attachments/assets/a68fe82f-711a-4510-92bb-78bd35707c06
+
+
 En als laatste hebben we een knop die de gebruiker naar de chat pagina brengt, Wanneer de gebruiker op de "chat met onze squad!" button klikt, wordt de gebruiker doorgestuurd naar de chatpagina. Op deze pagina heeft de gebruiker de mogelijkheid om berichten achter te laten. deze berichten worden in een database opgeslagen
-![team_sp_header](https://github.com/user-attachments/assets/0b52ded7-c36b-4697-b58c-31a654350136)
+
+
+https://github.com/user-attachments/assets/1c5b2b62-0f20-4006-8515-20e31f4ab09f
+
 
 ## Kenmerken
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met Javascript gedaan en hoe? Misschien heb je een framwork of library gebruikt? -->
