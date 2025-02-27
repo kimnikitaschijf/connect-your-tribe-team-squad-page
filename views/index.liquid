@@ -142,8 +142,25 @@
             {% endif %}
 
             {% if show == "birthdate" %}
-            {{ person.birthdate }}
+            <div class="neon">
+              {% assign birthdate = person.birthdate | date: '%s' %}
+              {% assign current_date = 'now' | date: '%s' %}
+
+              {% assign age_in_seconds = current_date | minus: birthdate %}
+              {% assign age_in_years = age_in_seconds | divided_by: 31557600 %}
+              {% assign age = age_in_years | floor %}
+
+              {{ age }}
+
+              {% assign birth_month_day = person.birthdate | date: "%m-%d" %}
+              {% assign current_month_day = 'now' | date: "%m-%d" %}
+
+              {% if birth_month_day == current_month_day %}
+              🎂 <!-- Voeg de verjaardagstaart emoji toe als de persoon vandaag jarig is -->
+              {% endif %}
+            </div>
             {% endif %}
+
           </article>
 
           {% endif %}
@@ -176,7 +193,6 @@
 
 
 <style>
-  /* Algemene stijlen */
   html,
   body {
     background-color: #04083F;
@@ -224,7 +240,7 @@
 
       .chat-button {
         background-color: #04083F;
-        color: #88E2C1;
+        color: #88e2c1;
         border: 3px solid #88E2C1;
 
 
@@ -244,6 +260,13 @@
   .fav_hobby {
     font-size: 4rem;
   }
+
+  .birthdate {
+    color: #04083F;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
 
   .index-main {
     #tint:checked~.tinted-background {
