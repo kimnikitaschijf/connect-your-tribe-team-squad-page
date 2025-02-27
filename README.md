@@ -92,6 +92,11 @@ Met een post route in server.js en een formulier met een submit button worden de
 # Ties kian jij dit controleren en aanvullen als het nodig is.
 
 ### Responsive
+Als de animatie van de cirkels aan is, blijven de cirkels binnen het scherm door gebruik te maken van dvh en dvw (dynamic viewport height en dynamic viewport width). De breedte van de cirkels is opgeslagen in een custom property.
+In de keyframes wordt de translate gemaakt op 100dvw - de diameter van de cirkel (de custom property voor de breedte). Dit zorgt ervoor dat de cirkel naar het randje van het scherm beweegt. Voor de horizontale animatie wordt er een extra 5em van de berekende waarde afgetrokken, wat voorkomt dat de cirkels buiten het scherm gaan en er een horizontale scrollbar verschijnt.
+
+Voor de verticale beweging wordt er 16em extra afgetrokken om te voorkomen dat er een verticale scrollbar verschijnt. Op kleinere schermen kan er wel een scrollbar verschijnen, omdat er anders niet genoeg ruimte is voor de filters bovenaan en de cirkels onderaan. Dit zorgt ervoor dat de cirkels altijd netjes binnen het zichtbare gebied blijven zonder dat ze uit het scherm vallen of ongewenste scrollbars veroorzaken, tenzij er echt niet genoeg ruimte is op kleinere schermen.
+
 Als de animatie van de cirkels uit is, is de pagina responsief door gebruik te maken van een grid-layout die automatisch nieuwe kolommen toevoegt wanneer er genoeg ruimte is. Dit wordt gedaan met de repeat en minmax functies in CSS.
 
 repeat zorgt ervoor dat het grid automatisch kolommen toevoegt en de breedte van de kolommen aanpast.
