@@ -91,6 +91,14 @@ Bij het verjaardag filter is de data uit de database omgezet naar de leeftijd. I
 Met een post route in server.js en een formulier met een submit button worden de berichten vanuit het formulier opgehaald en naar de database gestuurd. Wanneer de gebruiker het formulier invult en op de submit button klikt, wordt het bericht naar de server gestuurd via de post route. Wanneer de pagina opnieuw wordt geladen of door iemand anders wordt bezocht, worden de voorgaande berichten opgehaald uit de database en weergegeven op de chat pagina.
 # Ties kian jij dit controleren en aanvullen als het nodig is.
 
+### Responsive
+Als de animatie van de cirkels uit is, is de pagina responsief door gebruik te maken van een grid-layout die automatisch nieuwe kolommen toevoegt wanneer er genoeg ruimte is. Dit wordt gedaan met de repeat en minmax functies in CSS.
+
+repeat zorgt ervoor dat het grid automatisch kolommen toevoegt en de breedte van de kolommen aanpast.
+auto-fit zorgt ervoor dat de kolommen automatisch worden ingevuld op basis van de beschikbare ruimte.
+minmax kijkt als er genoeg ruimte is voor een nieuwe kolom.
+Dit zorgt ervoor dat het aantal kolommen zelf gemaakt worden afhankelijk van de schermgrootte, waardoor de layout flexibel is en zich goed aanpast aan verschillende schermformaten.
+
 
 ## Installatie
 <!-- Bij Installatie staat stap-voor-stap beschreven hoe je de development omgeving moet inrichten om aan de repository te kunnen werken. -->
