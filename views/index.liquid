@@ -134,15 +134,12 @@
             {% endcase %}
             {% endif %}
 
-
             {% if show == "fav_color" %}
-              <div class="profile_bubble" style="background-color: {{ person.fav_color }}; border-radius: 50%; width: 6rem; height: 6rem;">
-              </div>
+            <div class="profile_bubble"
+              style="background-color: {{ person.fav_color }}; border-radius: 50%; width: 6rem; height: 6rem;">
+            </div>
             {% endif %}
-            
-            
-            
-            
+
             {% if show == "birthdate" %}
             {{ person.birthdate }}
             {% endif %}
@@ -150,6 +147,8 @@
 
           {% endif %}
 
+          <p class="person-name" style="display: none;">{{ person.name }}</p>
+          <p class="person-bio" style="display: none;">{{ person.bio }}</p>
           <form action="/like" method="POST" class="like-container">
             <input type="hidden" name="studentid" value="{{ person.id }}">
             <button type="submit" class="like-button">
@@ -310,44 +309,64 @@
       filter: brightness(1.2);
     }
 
+    p {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #04083F;
+      margin: auto;
+      margin-top: 1rem;
+    }
+
     .like-container {
-      background-color: aqua;
-      margin-left: 1em;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      border-radius: 50%;
+      grid-column-start: -2;
+      width: 5rem;
+      height: 0;
     }
 
     .like-button {
       display: none;
+      border-radius: inherit;
       border: none;
       background-color: inherit;
       color: red;
+      margin-top: -2.5rem;
     }
 
     .like-count {
       display: none;
+      font-size: 1rem;
+      padding: 0;
+      text-align: center;
     }
 
     .github-link {
       display: none;
       grid-area: 2/1;
+      text-decoration: none;
     }
 
     &.open {
       display: grid;
-      grid-template-columns: min-content 1fr 4em;
+      grid-template-columns: min-content 1fr 5em;
       grid-template-rows: 1fr 1fr;
+      text-align: center;
       animation: none;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 101;
-      height: 10em;
-      width: 15em;
+      height: 12rem;
+      width: 21rem;
       border-radius: 15px;
+
+      img {
+        border-radius: 10%;
+        width: 6rem;
+        height: 6rem;
+        margin: 0.5rem;
+      }
 
       .like-button,
       .like-count,
@@ -363,18 +382,27 @@
 
       &.open {
         display: grid;
-        grid-template-columns: min-content 1fr 4em;
+        grid-template-columns: min-content 1fr 5em;
         grid-template-rows: 1fr 1fr;
         animation: none;
         z-index: 101;
-        height: 10em;
-        width: 15em;
+        height: 12rem;
+        width: 21rem;
         border-radius: 15px;
         position: absolute;
 
+        
         .website {
           display: none;
         }
+
+        img {
+        border-radius: 10%;
+        width: 6rem;
+        height: 6rem;
+        margin: 0.5rem;
+      }
+
       }
     }
   }
@@ -414,13 +442,7 @@
   }
 </style>
 
-
-
-
-<!-- ===================== -->
-
-
-
+<!-- ========= JS VOOR ANIMATIES ============ -->
 
 <script>
   // selecteer alle cirkels
@@ -435,10 +457,29 @@
 
   // Bij een click wordt een class toegevoegd aan de ge-klikte cirkel
   cirkels.forEach(cirkel => {
-    cirkel.addEventListener("click", () => {
-      cirkel.classList.toggle("open")
-    });
+  cirkel.addEventListener("click", () => {
+    cirkel.classList.toggle("open");
+
+    const personName = cirkel.querySelector(".person-name");
+    const personBio = cirkel.querySelector(".person-bio");
+
+    if (personName) {
+      if (cirkel.classList.contains("open")) {
+        personName.style.display = 'block'; 
+      } else {
+        personName.style.display = 'none'; 
+      }
+    }
+
+    if (personBio) {
+      if (cirkel.classList.contains("open")) {
+        personBio.style.display = 'block'; 
+      } else {
+        personBio.style.display = 'none'; 
+      }
+    }
   });
+});
 
 
   // stop animaties als de stop animatie button geklikt wordt
