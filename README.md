@@ -26,7 +26,7 @@ Bovenaan de pagina is er een knop die de animatie stopt. Zodra deze knop wordt i
 Daarna zijn er acht filters beschikbaar: avatar (standaard aan wanneer de pagina wordt geladen), dier, emoji, eten, hobby, kleur, land en verjaardag.
 Wanneer op een filter wordt geklikt, verandert de profielfoto naar het bijbehorende filtertype. Bijvoorbeeld, bij het dier-filter komt er een emoji van dat dier in de cirkel. Bij eten verschijnt de emoji van het favoriete gerecht, bij land komt de vlag-emoji van dat land tevoorschijn, en zo verder voor de andere filters.
 
-En als laatste hebben we een knop die de gebruiker naar de chat pagina brengt, waar ze berichten kunnen sturen naar onze squad.
+En als laatste hebben we een knop die de gebruiker naar de chat pagina brengt, Wanneer de gebruiker op de "chat met onze squad!" button klikt, wordt de gebruiker doorgestuurd naar de chatpagina. Op deze pagina heeft de gebruiker de mogelijkheid om berichten achter te laten. deze berichten worden in een database opgeslagen
 
 ## Kenmerken
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met Javascript gedaan en hoe? Misschien heb je een framwork of library gebruikt? -->
@@ -56,6 +56,23 @@ Wanneer de cirkel de rand van het scherm bereikt, gaat hij weer terug naar de po
 
 #### Random number voor cirkel animatie
 JavaScript wordt gebruikt om drie random getallen tussen 0 en 100 te genereren. Twee van deze getallen worden gebruikt in de keyframes om de snelheid van de animatie te bepalen. Het derde getal wordt gebruikt om elke cirkel een andere z-index te geven. Hierdoor krijgen de cirkels steeds een andere volgorde. deze 3 getallen worden als custom properties meegegeven aan de cirkels, waardoor elke cirkel in een andere richting zal bewegen, deze custom properties veranderen bij elke refresh van de pagina.
+
+### Like button in de open cirkels
+Wanneer er op de like-knop wordt geklikt, wordt de like-counter met 1 verhoogd.
+# Akiko kan jij uitleggen hoe dit werkt
+
+### Filters
+Wanneer er op een filter wordt geklikt, verandert de profielfoto naar een emoji. Dit wordt gedaan met de variabele show in de server.js. Voor elke filter wordt er een nieuwe route gemaakt, en elke route heeft de bijbehorende waarde voor show (bijvoorbeeld, show = fav_animal voor het dierfilter, show = fav_gerecht voor het etenfilter, enz.).
+
+In Liquid gebruiken we if-statements om te controleren welke waarde de show-variabele heeft. Als show = fav_animal is, veranderen de profielfoto's naar een emoji van dat dier.
+
+De emoji wordt weergegeven met when-statements. Wanneer we bijvoorbeeld de naam van het favoriete dier uit de Whois-database krijgen, wordt er met een when-statement gecontroleerd of het dier "aap" is. Als dat het geval is, wordt de emoji van een aap getoond.
+Hetzelfde proces wordt toegepast voor alle filters. In plaats van een tekstwoord te tonen, wordt er een emoji weergegeven op basis van de geselecteerde filter.
+# Kim kan jij controleren als dit klopt
+
+### Chat pagina
+Met een post route in server.js en een formulier met een submit button worden de berichten vanuit het formulier opgehaald en naar de database gestuurd. Wanneer de gebruiker het formulier invult en op de submit button klikt, wordt het bericht naar de server gestuurd via de post route. Wanneer de pagina opnieuw wordt geladen of door iemand anders wordt bezocht, worden de voorgaande berichten opgehaald uit de database en weergegeven op de chat pagina.
+# Ties kian jij dit controleren en aanvullen als het nodig is.
 
 
 ## Installatie
