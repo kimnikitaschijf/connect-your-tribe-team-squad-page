@@ -100,6 +100,24 @@ Bij het verjaardag filter is de data uit de database omgezet naar de leeftijd. I
 ### Chat pagina
 Met een post route in server.js en een formulier met een submit button worden de berichten vanuit het formulier opgehaald en naar de database gestuurd. Wanneer de gebruiker het formulier invult en op de submit button klikt, wordt het bericht naar de server gestuurd via de post route. Wanneer de pagina opnieuw wordt geladen of door iemand anders wordt bezocht, worden de voorgaande berichten opgehaald uit de database en weergegeven op de chat pagina.
 
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/11c59d872f3bf3c43b3d7793d65007d968aeada2/server.js#L102-L105
+Dit zorgt ervoor dat na de 'naam' van de persoon dubbele puntjes komen zodat er een scheiding wordt gemaakt tussen de 'naam' en het 'bericht' van de persoon.
+
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/11c59d872f3bf3c43b3d7793d65007d968aeada2/views/ties.liquid#L7-L9
+Dit zorgt ervoor dat de berichten die mensen sturen ook daadwerkelijk te zien zijn.
+
+Daarnaast zorgt deze js ervoor dat het ook daadwerkelijk functioneerd.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L96-L108
+Er word eerst een POST request gedaan op de route /chatten, daar komt de data ook binnen als iemand een 'formulier' verzend.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L99-L100
+Hier worden de gegevens die de persoon heeft ingevuld in het 'formulier' uit request.body gehaald.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L102
+Dit controlleerd of alle 2 de velden zijn ingevuld, zo niet word het 'formulier' ook niet opgeslagen.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L103
+Een string word gemaakt van het bericht bijvoorbeeld "Ties: Hoi"
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/main/server.js#L104
+Na het verzenden wordt de gebruiker doorgestuurd naar /chatten. De pagina herlaad daardoor en nieuwe berichten worden geladen.
+
 ### Responsive
 Als de animatie van de cirkels aan is, blijven de cirkels binnen het scherm door gebruik te maken van dvh en dvw (dynamic viewport height en dynamic viewport width). De breedte van de cirkels is opgeslagen in een custom property.
 In de keyframes wordt de translate gemaakt op 100dvw - de diameter van de cirkel (de custom property voor de breedte). Dit zorgt ervoor dat de cirkel naar het randje van het scherm beweegt. Voor de horizontale animatie wordt er een extra 5em van de berekende waarde afgetrokken, wat voorkomt dat de cirkels buiten het scherm gaan en er een horizontale scrollbar verschijnt.
