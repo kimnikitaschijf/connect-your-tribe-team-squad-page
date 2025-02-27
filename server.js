@@ -82,7 +82,7 @@ app.get('/viresh', async function (request, response) {
   response.render('viresh.liquid', { persons: personResponseJSON.data })
 })
 
-app.get('/ties', async function (request, response) {
+app.get('/chatten', async function (request, response) {
   const person = await fetch('https://fdnd.directus.app/items/person/?fields=name,squads.squad_id.name,github_handle,fav_color&filter={"github_handle":{"_neq":"null"}}')
   const personResponseJSON = await person.json()
 
@@ -95,7 +95,7 @@ app.get('/ties', async function (request, response) {
   // comment sectie
   let messages = [];
 
-  app.post('/ties', async function (request, response) {
+  app.post('/chatten', async function (request, response) {
       let naam = request.body.naam;
       let bericht = request.body.bericht;
   
@@ -104,7 +104,7 @@ app.get('/ties', async function (request, response) {
           messages.push(formattedMessage);
       }
   
-      response.redirect(303, '/ties');
+      response.redirect(303, '/chatten');
   });
   // comment sectie
 
