@@ -93,18 +93,18 @@ app.get('/ties', async function (request, response) {
 })
 
   // comment sectie
-  let messages = []; // Shared messages for all pages
+  let messages = [];
 
   app.post('/ties', async function (request, response) {
       let naam = request.body.naam;
       let bericht = request.body.bericht;
   
-      if (naam && bericht) { // Prevent empty submissions
+      if (naam && bericht) {
           let formattedMessage = `${naam}: ${bericht}`;
           messages.push(formattedMessage);
       }
   
-      response.redirect(303, '/ties'); // Stay on /ties after submitting
+      response.redirect(303, '/ties');
   });
   // comment sectie
 
