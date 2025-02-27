@@ -143,6 +143,26 @@ auto-fit zorgt ervoor dat de kolommen automatisch worden ingevuld op basis van d
 minmax kijkt als er genoeg ruimte is voor een nieuwe kolom.
 Dit zorgt ervoor dat het aantal kolommen zelf gemaakt worden afhankelijk van de schermgrootte, waardoor de layout flexibel is en zich goed aanpast aan verschillende schermformaten.
 
+## Server.js
+Dit project gebruikt Node.js om een server te draaien en Express.js om routes en functies te beheren. Met LiquidJS worden dynamische HTML-pagina’s gemaakt op basis van data uit een externe API.
+
+De server haalt gegevens op via de Directus API en toont deze op verschillende pagina’s. Met fetch() wordt de data in JSON-formaat opgehaald en via Liquid in HTML weergegeven.
+
+- Express.js wordt gebruikt om routes aan te maken.
+- LiquidJS zorgt voor het dynamisch weergeven van data.
+- Directus API levert de gegevens over squadleden.
+
+Routes en functies:
+
+/ → Haalt een lijst op van personen en toont deze op de homepage.
+
+/kim, /akiko, /viresh, /ties → Geeft specifieke squadleden weer.
+
+/chatten → Hier kunnen gebruikers berichten achterlaten.
+
+Filterpagina’s (/emoji, /land, /verjaardag, etc.) tonen personen gefilterd op bepaalde eigenschappen.
+
+/like → Hiermee kunnen gebruikers een squadlid liken.
 
 ## Installatie
 <!-- Bij Installatie staat stap-voor-stap beschreven hoe je de development omgeving moet inrichten om aan de repository te kunnen werken. -->
