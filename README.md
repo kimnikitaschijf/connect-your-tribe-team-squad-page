@@ -108,6 +108,8 @@ Dit zorgt ervoor dat de berichten die mensen sturen ook daadwerkelijk te zien zi
 
 Daarnaast zorgt deze js ervoor dat het ook daadwerkelijk functioneerd.
 https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L96-L108
+
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L96-L108
 Er word eerst een POST request gedaan op de route /chatten, daar komt de data ook binnen als iemand een 'formulier' verzend.
 https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/680e1bf23e5beb5bd61d4d3eddcd94b5c84cbcb4/server.js#L99-L100
 Hier worden de gegevens die de persoon heeft ingevuld in het 'formulier' uit request.body gehaald.
