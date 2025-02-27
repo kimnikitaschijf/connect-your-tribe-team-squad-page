@@ -1,36 +1,35 @@
 {% render 'partials/head.liquid' %}
 
 <main>
+    <ul class="filter-select-buttons">
+        <li><a href="/">Home</a></li>
+    </ul>
 
-<footer class="comment-section">
-    <div class="comment-messages">
-        {% for message in messages %}
+    <footer class="comment-section">
+        <div class="comment-messages">
+            {% for message in messages %}
             <p>{{ message }}</p>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
 
-    <form class="comment-form" method="post" action="/chatten">
-    <div class="input-container">
-        <label>Naam:
-            <input type="text" name="naam" required>
-        </label>
-        <label>Bericht:
-            <input type="text" name="bericht" required>
-        </label>
-    </div>
+        <form class="comment-form" method="post" action="/chatten">
+            <p class="sub-title">Typ hieronder je berichtje om te delen met onze squad!</p>
+            <div class="input-container">
+                <label>Je naam:
+                    <input type="text" name="naam" required>
+                </label>
+                <label>Jouw bericht:
+                    <input type="text" name="bericht" required>
+                </label>
+            </div>
 
-    <button type="submit">Verzend</button>
-</form>
+            <button type="submit">Verstuur je bericht</button>
+        </form>
 
-</footer>
+    </footer>
 </main>
 
-
-
-
 <style>
-    
-    
     body {
         background-color: #05083F;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -38,38 +37,77 @@
         margin: 0;
         padding: 0;
         height: 100vh;
+        font-size: 1rem;
     }
-    
+
+    ul {
+        list-style: none;
+        margin: 2rem 1rem;
+        padding: 0;
+        gap: 1rem;
+
+        li {
+            cursor: pointer;
+            margin: 1rem 0rem 1rem 0rem;
+
+            a {
+                color: #88E2C1;
+                text-decoration: none;
+                background-color: #04083F;
+                border: 1.5px solid #88E2C1;
+                border-radius: 1rem;
+                padding: 0.7rem;
+            }
+        }
+    }
+
     /* berichten container */
     .comment-messages {
         overflow-y: auto;
-        padding: .6em;
         display: flex;
         flex-direction: column;
         overflow-anchor: auto;
-        max-height: calc(100vh - 9em); /* berichten overlap fix */
+        max-height: calc(100vh - 9rem);
+        /* berichten overlap fix */
 
         @media screen and (max-width: 700px) {
-            max-height: calc(100vh - 7.8em); /* berichten overlap fix */
+            max-height: calc(100vh - 7.8rem);
+            /* berichten overlap fix */
         }
 
         @media screen and (max-width: 470px) {
-            max-height: calc(100vh - 10.6em); /* berichten overlap fix */
+            max-height: calc(100vh - 10.6rem);
+            /* berichten overlap fix */
         }
     }
-    
+
+    .sub-title {
+        color: #04083F;
+        background-color: #88E2C1;
+        border: 1.5px solid #04083F;
+        font-weight: bold;
+        padding: 0.7rem;
+        border-radius: 1rem;
+        margin: 1rem;
+        font-size: 1rem;
+        text-align: center;
+        max-width: max-content;
+        justify-self: center;
+    }
+
     /* berichten */
     .comment-messages p {
         background: #88E2C1;
-        padding: .7em;
-        border-radius: .4em;
-        margin: .35em 0;
-        font-size: .9em;
+        padding: 1rem;
+        border-radius: 1rem;
+        margin: 0.5rem;
         word-wrap: break-word;
         overflow-wrap: break-word;
-        max-width: 100%;
+        width: fit-content;
+        min-width: min-content;
+        align-self: center;
     }
-    
+
     /* invoerveld + verzend button container */
     .comment-form {
         display: flex;
@@ -79,19 +117,18 @@
         left: 50%;
         transform: translateX(-50%);
         width: 100vw;
-        /* height: 9em; */
         background: #9F7AEF;
-        padding: .6em;
+        padding: 1rem;
         align-items: center;
     }
-    
+
     /* invoerveld container */
     .input-container {
         display: flex;
-        gap: 1em;
+        gap: 1rem;
         width: 100%;
         justify-content: center;
-        gap: 3em;
+        gap: 3rem;
 
         @media screen and (max-width: 470px) {
             flex-direction: column;
@@ -99,46 +136,46 @@
             gap: 0;
         }
     }
-    
+
     /* invoervelden */
     .comment-form input {
-        padding: .5em;
-        margin-bottom: .5em;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
         border: 1px solid #dddddd;
-        border-radius: .4em;
+        border-radius: 1rem;
         font-size: 1em;
         width: 100%;
 
         @media screen and (max-width: 700px) {
-            width: 8em;
+            width: 8rem;
         }
     }
-    
+
     /* verzend button */
     .comment-form button {
         background: #05083F;
-        color: white;
+        color: #ffffff;
         border: none;
-        padding: .5em;
-        border-radius: .4em;
+        padding: 1rem 2rem 1rem 2rem;
+        border-radius: 1rem;
         cursor: pointer;
-        width: 100%;
-        font-size: 1em;
-        margin-top: .5em;
+        width: max-content;
+        margin-top: 1rem;
+        font-size: 1rem;
     }
 
     /* verzend button hover */
     .comment-form button:hover {
         background: #010114;
+        font-weight: bold;
     }
-
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    let messageContainer = document.querySelector(".comment-messages");
-    messageContainer.scrollTop = messageContainer.scrollHeight;
-});
+    document.addEventListener("DOMContentLoaded", function () {
+        let messageContainer = document.querySelector(".comment-messages");
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    });
 </script>
 
 {% render 'partials/foot.liquid' %}
