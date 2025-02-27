@@ -551,6 +551,15 @@
       cirkel.style.setProperty('--z', z)
     });
   }
+
+    // De overlay blijft op scherm blijft als de github link geklikt wordt en daarna terug gaat naar de squadpage
+    // reset wanneer de website ingeladen wordt
+    // https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event
+    // https://stackoverflow.com/questions/15640087/javascript-unchecking-all-checkboxes
+    window.addEventListener("pageshow", function () {
+      let overlay = document.getElementById("tint");
+      overlay.checked = false;
+    });
 </script>
 
 {% render 'partials/foot.liquid' %}
