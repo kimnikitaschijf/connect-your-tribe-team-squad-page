@@ -185,7 +185,7 @@
 
     .github-link {
       display: none;
-      grid-area: 2/1;
+      grid-area: 2 / 1 / 3 / 3;
       text-decoration: none;
     }
 

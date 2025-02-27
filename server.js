@@ -23,10 +23,9 @@ let filters = {
   emoji: null,
 };
 
-const baseUrl =
-  "https://fdnd.directus.app/items/person/?fields=id,name,squads.squad_id.name,fav_color,fav_emoji,fav_country,birthdate,avatar,github_handle,fav_animal,fav_hobby,fav_kitchen&filter[squads][squad_id][name][_eq]=1G&filter[birthdate][_neq]=null&sort=birthdate";
+const baseUrl = "https://fdnd.directus.app/items/person/?fields=id,name,squads.squad_id.name,fav_color,fav_emoji,fav_country,birthdate,avatar,github_handle,fav_animal,fav_hobby,fav_kitchen&filter[squads][squad_id][name][_eq]=1G&filter[birthdate][_neq]=null&sort=birthdate";
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 const engine = new Liquid();
 app.engine('liquid', engine.express());
