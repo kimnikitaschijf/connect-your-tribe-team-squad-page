@@ -67,8 +67,25 @@ Wanneer er op een filter wordt geklikt, verandert de profielfoto naar een emoji.
 In Liquid gebruiken we if-statements om te controleren welke waarde de show-variabele heeft. Als show = fav_animal is, veranderen de profielfoto's naar een emoji van dat dier.
 
 De emoji wordt weergegeven met when-statements. Wanneer we bijvoorbeeld de naam van het favoriete dier uit de Whois-database krijgen, wordt er met een when-statement gecontroleerd of het dier "aap" is. Als dat het geval is, wordt de emoji van een aap getoond.
-Hetzelfde proces wordt toegepast voor alle filters. In plaats van een tekstwoord te tonen, wordt er een emoji weergegeven op basis van de geselecteerde filter.
-# Kim kan jij controleren als dit klopt
+
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/11c59d872f3bf3c43b3d7793d65007d968aeada2/views/index.liquid#L60-L96
+
+Zo ziet dit er nu uit: <br>
+
+<img width="784" alt="Scherm­afbeelding 2025-02-27 om 11 16 41" src="https://github.com/user-attachments/assets/566a857a-8f03-478f-a283-5054fd889101" />
+
+<br>
+Dit wordt ook toegepast bij de andere filters: Land, hobby & eten. Bv land:
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/11c59d872f3bf3c43b3d7793d65007d968aeada2/views/index.liquid#L38-L58
+
+Als het kleur filter actief is wordt er een rondje van de kleur weergeven. Deze kleur wordt opgehaald uit de database. 
+
+<img width="273" alt="Scherm­afbeelding 2025-02-27 om 11 18 13" src="https://github.com/user-attachments/assets/69461b21-30bc-49a0-9d80-4429b648eee8" />
+
+<br>
+Bij het verjaardag filter is de data uit de database omgezet naar de leeftijd. Ipv dat er bijvoorbeeld 2004-12-21 staat, wordt dit in de liquid omgezet naar de leeftijd in getallen. Deze past zich aan op de datum. Als iemand vandaag jarig is wordt de leeftijd automatisch aangepast. Ook wordt er op de verjaardag zelf een taart emoji toegevoegd bij de jarige persoon: <br>
+
+<img width="251" alt="Scherm_afbeelding 2025-02-27 om 10 37 08" src="https://github.com/user-attachments/assets/2405ba0d-e3c3-4761-9ff6-1b0dc4a09dfd" />
 
 ### Chat pagina
 Met een post route in server.js en een formulier met een submit button worden de berichten vanuit het formulier opgehaald en naar de database gestuurd. Wanneer de gebruiker het formulier invult en op de submit button klikt, wordt het bericht naar de server gestuurd via de post route. Wanneer de pagina opnieuw wordt geladen of door iemand anders wordt bezocht, worden de voorgaande berichten opgehaald uit de database en weergegeven op de chat pagina.
