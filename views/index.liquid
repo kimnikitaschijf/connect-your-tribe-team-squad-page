@@ -206,12 +206,13 @@
     flex-wrap: wrap;
     justify-content: center;
     list-style: none;
-    margin: 4.5rem 0rem 1.5rem 0rem;
+    margin: 1rem 0rem 1.5rem 0rem;
     padding: 0;
     gap: 1rem;
 
     li {
       cursor: pointer;
+      margin: 1rem 0rem 1rem 0rem;
 
       a {
         color: #04083F;
@@ -225,8 +226,15 @@
         background-color: #04083F;
         color: #88E2C1;
         border: 3px solid #88E2C1;
+
+
       }
     }
+
+    @media (max-width: 1120px) {
+      margin: 4.5rem 0rem 1.5rem 0rem;
+    }
+
   }
 
   .fav_emoji,
@@ -278,7 +286,7 @@
       @media (max-width: 1120px) {
         left: 50%;
         transform: translateX(-50%);
-        top: 8.5rem;
+        top: auto;
       }
 
     }
