@@ -13,9 +13,9 @@
   .sub-title {
     color: #04083F;
     background-color: #9F7AEF;
-    padding: 0.7rem;
+    /* padding: 0.7rem; */
     border-radius: 50rem;
-    margin: 1rem;
+    padding: 1rem;
     font-size: 1rem;
     text-align: center;
     max-width: max-content;
