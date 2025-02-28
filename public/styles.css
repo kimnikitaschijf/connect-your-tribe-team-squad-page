@@ -76,6 +76,10 @@
   .index-main {
     #tint:checked~.tinted-background {
       display: block;
+      
+      @media (max-width: 1020px) {
+        overflow-x: hidden;
+      }
     }
 
     #tint:checked~.label-focus:has(.profile-bubble.static)~.tinted-background {
@@ -146,6 +150,12 @@
     animation:
       transX calc(var(--durX) * 1s) linear infinite alternate,
       transY calc(var(--durY) * 1s) linear infinite alternate;
+
+    @media (max-width: 1020px) {
+      animation:
+      transX calc(var(--durX) * 1s) linear infinite alternate,
+      transY-mobile calc(var(--durY) * 1s) linear infinite alternate;
+    }
 
     &:hover {
       animation-play-state: paused;
@@ -281,5 +291,15 @@
 
     100% {
       transform: translatey(calc(100dvh - var(--size-circle) - 16em));
+    }
+  }
+
+  @keyframes transY-mobile {
+    0% {
+      transform: translatey(0);
+    }
+
+    100% {
+      transform: translatey(calc(100dvh - var(--size-circle)));
     }
   }
