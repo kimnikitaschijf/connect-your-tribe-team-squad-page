@@ -89,7 +89,14 @@ JavaScript wordt gebruikt om drie random getallen tussen 0 en 100 te genereren. 
 
 ### Like button in de open cirkels
 Wanneer er op de like-knop wordt geklikt, wordt de like-counter met 1 verhoogd.
-# Akiko kan jij uitleggen hoe dit werkt
+
+De likes worden tijdelijk opgeslagen in een leeg object genaamd likes. De GET-route / haalt studentengegevens op uit de Directus API en stuurt deze samen met de likes naar de index.liquid pagina.
+
+De POST-route /like verwerkt de likes. Eerst wordt het student ID opgehaald uit het formulier. Vervolgens wordt gecontroleerd of de student al een like heeft. Als dat zo is, wordt de like verwijderd. Als de student nog geen like heeft, krijgt diegene een like. Daarna wordt de gebruiker teruggestuurd naar de homepage.
+
+Als een student al een like heeft, wordt deze met één verminderd. Als de like op nul komt, wordt deze uit het likes-object verwijderd. Als de student nog geen like heeft, wordt er één toegevoegd.
+
+Omdat de likes niet in een database worden opgeslagen, verdwijnen ze wanneer de server opnieuw wordt gestart.
 
 ### Filters
 Wanneer er op een filter wordt geklikt, verandert de profielfoto naar een emoji. Dit wordt gedaan met de variabele show in de server.js. Voor elke filter wordt er een nieuwe route gemaakt, en elke route heeft de bijbehorende waarde voor show (bijvoorbeeld, show = fav_animal voor het dierfilter, show = fav_gerecht voor het etenfilter, enz.).
