@@ -71,6 +71,7 @@ Dit is opgezet om de aandacht naar de geklikte cirkel te trekken en ervoor te zo
 
 ### stop animatie button
 We hebben daarna een knop om de animatie te stoppen. Dit wordt gedaan met een eventlistener op de knop. Wanneer er op de knop wordt geklikt, krijgen alle cirkels de class static, wat de animatie stopt. Vervolgens krijgt de container van de cirkels de class static-main, waardoor de cirkels in kolommen naast elkaar worden geplaatst.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/22c838f627a0fc1f42a6f060cc073b9bf805afa5/public/main.js#L36-L53
 
 ### de cirkels
 De profielafbeelding wordt ingeladen vanuit de database, waarbij de GitHub-handle uit Whois wordt gehaald en de rest van de URL zelf wordt toegevoegd.
@@ -84,8 +85,11 @@ Elke cirkel heeft twee keyframes: een voor de horizontale beweging en een voor d
 Bijvoorbeeld, als de cirkel 800ms heeft om naar de rechterkant van de pagina te bewegen, maar slechts 400ms om naar beneden te gaan, zal de cirkel diagonaal naar beneden bewegen.
 Wanneer de cirkel de rand van het scherm bereikt, gaat hij weer terug naar de positie vanwaar hij kwam, omdat alternate is aangegeven in de animatie op de cirkels.
 
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/22c838f627a0fc1f42a6f060cc073b9bf805afa5/public/styles.css#L277-L295
+
 #### Random number voor cirkel animatie
 JavaScript wordt gebruikt om drie random getallen tussen 0 en 100 te genereren. Twee van deze getallen worden gebruikt in de keyframes om de snelheid van de animatie te bepalen. Het derde getal wordt gebruikt om elke cirkel een andere z-index te geven. Hierdoor krijgen de cirkels steeds een andere volgorde. deze 3 getallen worden als custom properties meegegeven aan de cirkels, waardoor elke cirkel in een andere richting zal bewegen, deze custom properties veranderen bij elke refresh van de pagina.
+https://github.com/kimnikitaschijf/connect-your-tribe-team-squad-page/blob/22c838f627a0fc1f42a6f060cc073b9bf805afa5/public/main.js#L55-L69
 
 ### Like button in de open cirkels
 Wanneer er op de like-knop wordt geklikt, wordt de like-counter met 1 verhoogd.
